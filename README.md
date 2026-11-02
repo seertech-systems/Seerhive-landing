@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # SeerHive — Site
 
 A Next.js 14 (App Router) + Tailwind CSS marketing site for **Seertech
@@ -92,3 +93,7 @@ theme-reactive tokens.
    but would get unwieldy for a growing catalog.
 4. **Add `next/image`-based OG images** per project for social sharing,
    using each project's `name`/`tagline` from `lib/projects.ts`.
+=======
+# Seerhive-landing
+This is the landing page of the seerhive 
+>>>>>>> 4567a74bbadef54dd5d837d7e5068c24b12420da
