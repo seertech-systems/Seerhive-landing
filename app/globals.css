@@ -1,0 +1,762 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------
+   Theme tokens. Default (no class on <html>) is dark. Adding
+   `.light` to <html> (see ThemeToggle) swaps every value below.
+   All tailwind colors in tailwind.config.ts read from these.
+   --------------------------------------------------------- */
+:root {
+  --ink: 6 12 28; /* page background */
+  --surface: 11 20 44;
+  --surface2: 16 28 60;
+  --border: 28 46 92;
+  --mist: 138 156 192; /* secondary text */
+  --paper: 232 241 255; /* primary text */
+
+  --aqua: 34 211 245;
+  --aqua-soft: 160 244 255;
+  --aqua-dim: 6 90 140;
+
+  --azure: 10 108 255;
+  --azure-soft: 111 176 255;
+  --azure-dim: 2 48 181;
+
+  color-scheme: dark;
+}
+
+html.light {
+  --ink: 245 249 255;
+  --surface: 255 255 255;
+  --surface2: 232 241 255;
+  --border: 205 221 245;
+  --mist: 84 100 130;
+  --paper: 8 20 46;
+
+  --aqua: 0 120 200;
+  --aqua-soft: 0 96 170;
+  --aqua-dim: 6 90 140;
+
+  --azure: 3 53 190;
+  --azure-soft: 3 70 200;
+  --azure-dim: 222 234 255;
+
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  --font-display: var(--font-body);
+  --font-mono: var(--font-body);
+}
+
+body {
+  background-color: rgb(var(--ink));
+  color: rgb(var(--paper));
+}
+
+::selection {
+  background: #22d3f5;
+  color: #060c1c;
+}
+
+/* Hexagon shape used across the "hive" motif */
+.hex {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+/* Outlined hexagon. The element itself is clipped to a hexagon, so a rectangular mask ring would
+   only survive on the vertical sides. Instead: a gradient hexagon (::before) with a slightly
+   smaller ink-filled hexagon (::after) on top, giving an even outline on all six edges. */
+.hex-border {
+  position: relative;
+  isolation: isolate;
+  background: transparent !important;
+}
+.hex-border::before,
+.hex-border::after {
+  content: "";
+  position: absolute;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  pointer-events: none;
+}
+.hex-border::before {
+  inset: 0;
+  z-index: -2;
+  background: linear-gradient(135deg, #22d3f5, #0a6cff);
+}
+.hex-border::after {
+  inset: 1.5px;
+  z-index: -1;
+  background: rgb(var(--ink));
+}
+
+/* Hex grid runs across the whole header. Text stays readable because the copy sits on a
+   soft frosted panel (blurred, semi-opaque, feathered on its right edge) rather than the grid
+   being cut away. */
+.hero-grid {
+  /* the grid lines are drawn at 40% strength here (not with element opacity), so the shine
+     and glitter layers on top can be fully bright */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='96' viewBox='0 0 84 96'%3E%3Cg fill='none' stroke='%231C2E5C' stroke-opacity='.4'%3E%3Cpath d='M42 0 L84 24 L84 72 L42 96 L0 72 L0 24 Z'/%3E%3C/g%3E%3C/svg%3E");
+  /* dissolve into the page instead of ending on a hard line at the section edge */
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
+}
+/* One-time shine: when the page loads, a band passes over the hex grid, left to right.
+   Same tile as the grid, stroked in the logo's blues, revealed through a moving mask. */
+.hero-grid::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 50%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 50%, transparent 100%);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 35% 100%;
+  mask-size: 35% 100%;
+  -webkit-mask-position: -40% 0;
+  mask-position: -40% 0;
+  animation: hexShine 2.4s ease-in-out 0.5s 1 both;
+}
+.hero-grid::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='96' viewBox='0 0 84 96'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%233DEBFF'/%3E%3Cstop offset='.5' stop-color='%230066FF'/%3E%3Cstop offset='1' stop-color='%230224B0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg fill='none' stroke='url(%23g)' stroke-width='3.5'%3E%3Cpath d='M42 0 L84 24 L84 72 L42 96 L0 72 L0 24 Z'/%3E%3C/g%3E%3C/svg%3E");
+}
+@keyframes hexShine {
+  from { -webkit-mask-position: -40% 0; mask-position: -40% 0; }
+  to { -webkit-mask-position: 140% 0; mask-position: 140% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-grid::after { animation: none; opacity: 0; }
+}
+
+.copy-blur {
+  position: relative;
+  isolation: isolate;
+}
+.copy-blur::before {
+  content: "";
+  position: absolute;
+  inset: -48px -48px;
+  z-index: -1;
+  background: rgb(var(--ink) / 0.74);
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);
+  /* feather every edge: horizontal x vertical fades, intersected */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 10%, #000 74%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 10%, #000 74%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+  pointer-events: none;
+}
+/* centred copy (contact): feather both sides evenly */
+.copy-blur--center::before {
+  /* no backdrop blur here: it showed up as blotchy smudges over the grid. A soft radial wash
+     of the page colour does the same job smoothly. */
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  background: radial-gradient(ellipse closest-side, rgb(var(--ink) / 0.85), rgb(var(--ink) / 0));
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+/* Brand gradient: the logo's own blues (cyan to royal to deep blue). Fixed values, not theme
+   tokens, so it looks the same in light and dark. */
+.brand-gradient {
+  background-image: none;
+  background-color: #0078C8;
+}
+.brand-gradient-x {
+  background-image: none;
+  background-color: #0078C8;
+}
+
+/* Eyebrow / label style */
+.label-mono {
+  font-family: var(--font-body), sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Soft radial glow used behind hero + section anchors */
+.glow-azure {
+  background: radial-gradient(closest-side, rgba(10, 108, 255, 0.35), transparent);
+}
+.glow-aqua {
+  background: radial-gradient(closest-side, rgba(34, 211, 245, 0.28), transparent);
+}
+
+/* Hero hive diagram: orbiting rings, floating modules, pulsing core */
+.hd-orbit {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hdSpin 60s linear infinite;
+}
+.hd-orbit--rev { animation-duration: 45s; animation-direction: reverse; }
+.hd-node { animation: hdFloat 5s ease-in-out infinite; }
+.hd-halo {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hdHalo 3s ease-out infinite;
+}
+@keyframes hdSpin { to { transform: rotate(360deg); } }
+@keyframes hdFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes hdHalo {
+  0% { opacity: 0.8; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.55); }
+}
+
+/* Connection line dash animation for the hive diagram */
+.dash-flow {
+  stroke-dasharray: 6 8;
+  animation: dashmove 1.6s linear infinite;
+}
+@keyframes dashmove {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+
+/* ---------------------------------------------------------
+   Global scroll-reveal. Elements marked data-reveal start
+   hidden + offset and settle into place once they enter the
+   viewport (see components/ScrollReveal.tsx, which also adds
+   `.reveal-ready` to <html> so no-JS visitors see everything).
+   --------------------------------------------------------- */
+html.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-d, 0ms);
+  will-change: opacity, transform;
+}
+html.reveal-ready [data-reveal="left"] {
+  transform: translateX(-44px);
+}
+html.reveal-ready [data-reveal="right"] {
+  transform: translateX(44px);
+}
+html.reveal-ready [data-reveal="fade"] {
+  transform: none;
+}
+html.reveal-ready [data-reveal="zoom"] {
+  transform: scale(0.94);
+}
+html.reveal-ready [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  html.reveal-ready [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Visible keyboard focus ring across interactive elements */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #22d3f5;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.scrollbar-none {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---------------------------------------------------------
+   Cinematic page loader (components/HiveLoader.tsx). One lone
+   cube appears and pulses, then six more burst out of it and
+   lock into the SeerHive mark, which flashes, and the wordmark
+   rises. Plays on every full page load, including hard refresh.
+   --------------------------------------------------------- */
+#hive-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  background: rgb(var(--ink));
+  overflow: hidden;
+  transition: opacity 0.7s ease, visibility 0.7s ease;
+}
+html.hive-seen #hive-loader {
+  display: none;
+}
+#hive-loader.hive-loader--done {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+#hive-loader.hive-loader--done .hive-loader__stage {
+  transform: scale(1.12);
+  transition: transform 0.7s ease;
+}
+
+.hive-loader__backdrop {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='96' viewBox='0 0 84 96'%3E%3Cg fill='none' stroke='%231C2E5C' stroke-width='1'%3E%3Cpath d='M42 0 L84 24 L84 72 L42 96 L0 72 L0 24 Z'/%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0;
+  animation: hiveBackdropIn 1.2s ease 0.9s forwards;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(closest-side, #000 20%, transparent 85%);
+  mask-image: radial-gradient(closest-side, #000 20%, transparent 85%);
+}
+.hive-loader__glow {
+  position: absolute;
+  width: 620px;
+  height: 620px;
+  max-width: 95vw;
+  max-height: 95vw;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(10, 108, 255, 0.3), rgba(34, 211, 245, 0.08) 60%, transparent 75%);
+  filter: blur(24px);
+  opacity: 0;
+  animation: hiveGlowIn 1s ease 0.1s forwards, hiveGlow 3s ease-in-out 1.2s infinite;
+}
+
+/* shock ring that fires when the six cubes burst out */
+.hive-loader__pulse {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 2px solid rgba(34, 211, 245, 0.7);
+  opacity: 0;
+  animation: hivePulse 1.1s cubic-bezier(0.16, 1, 0.3, 1) 1.05s forwards;
+  pointer-events: none;
+}
+
+.hive-loader__pulse--2 { animation-delay: 1.3s; border-color: rgba(10, 108, 255, 0.7); }
+.hive-loader__pulse--3 { animation-delay: 1.6s; border-color: rgba(160, 244, 255, 0.55); }
+
+.hive-loader__stage {
+  position: relative;
+  width: min(300px, 62vw);
+  aspect-ratio: 1010 / 1054;
+  animation: hiveStageGlow 1.6s ease-in-out 2.5s 1 both;
+}
+.hive-loader__mark {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.hive-cube {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+/* the first cube: alone on the stage */
+.hive-cube--solo {
+  opacity: 0;
+  animation: hiveSolo 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s forwards,
+    hiveSoloBeat 1s ease-in-out 1.05s forwards;
+}
+/* the other six: fly out of the solo cube into place */
+.hive-cube--fly {
+  opacity: 0;
+  animation: hiveFly 0.85s cubic-bezier(0.22, 1.25, 0.36, 1) forwards;
+  animation-delay: calc(1.05s + var(--i) * 0.09s);
+}
+
+/* a wave of light + lift ripples round the finished mark */
+.hive-cube-wave {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hiveWave 0.9s ease-in-out forwards;
+  animation-delay: calc(2.55s + var(--i) * 0.1s);
+}
+.hive-cube--solo .hive-cube-wave {
+  animation-delay: 2.45s;
+}
+
+/* bright diagonal band that glides across the mark */
+.hive-shine {
+  transform: translateX(0);
+  opacity: 0;
+  animation: hiveShine 1.1s cubic-bezier(0.45, 0, 0.25, 1) 2.9s forwards;
+}
+.hive-sparkle {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  transform: scale(0);
+  animation: hiveSparkle 0.7s ease-out forwards;
+}
+
+.hive-loader__word {
+  text-align: center;
+  opacity: 0;
+  animation: hiveFadeUp 0.7s ease 2.3s forwards;
+}
+.hive-loader__title {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: -0.01em;
+  color: rgb(var(--paper));
+}
+.hive-loader__title b {
+  background: linear-gradient(110deg, #0a6cff 20%, #a0f4ff 45%, #22d3f5 55%, #0a6cff 80%);
+  background-size: 250% 100%;
+  animation: hiveTitleShine 1.6s ease 3s 1 both;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hive-loader__sub {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--font-body), sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgb(var(--mist));
+}
+
+.hive-loader__bar {
+  width: 184px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgb(var(--border));
+  overflow: hidden;
+  opacity: 0;
+  animation: hiveFadeUp 0.6s ease 2.5s forwards;
+}
+.hive-loader__bar span {
+  display: block;
+  height: 100%;
+  width: 42%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, #22d3f5, #0a6cff, transparent);
+  animation: hiveBar 1.4s ease-in-out infinite;
+}
+
+@keyframes hiveSolo {
+  0%   { opacity: 0; transform: scale(0.15) rotate(-25deg); }
+  60%  { opacity: 1; }
+  100% { opacity: 1; transform: scale(1.35) rotate(0); }
+}
+@keyframes hiveSoloBeat {
+  0%   { opacity: 1; transform: scale(1.35); filter: brightness(1); }
+  30%  { opacity: 1; transform: scale(1.55); filter: brightness(1.6); }
+  100% { opacity: 1; transform: scale(1);    filter: brightness(1); }
+}
+@keyframes hiveFly {
+  0%   { opacity: 0; transform: translate(calc(var(--dx) * -1px), calc(var(--dy) * -1px)) scale(0.2) rotate(-40deg); }
+  35%  { opacity: 1; }
+  100% { opacity: 1; transform: translate(0, 0) scale(1) rotate(0); }
+}
+@keyframes hiveWave {
+  0%, 100% { transform: translateY(0) scale(1); filter: brightness(1); }
+  45%      { transform: translateY(-34px) scale(1.07); filter: brightness(1.7) saturate(1.2); }
+}
+@keyframes hiveShine {
+  0%   { opacity: 1; transform: translateX(0); }
+  100% { opacity: 1; transform: translateX(1900px); }
+}
+@keyframes hiveSparkle {
+  0%   { opacity: 0; transform: scale(0) rotate(0); }
+  45%  { opacity: 1; transform: scale(1) rotate(45deg); }
+  100% { opacity: 0; transform: scale(0) rotate(90deg); }
+}
+@keyframes hiveTitleShine {
+  from { background-position: 120% 0; }
+  to   { background-position: -40% 0; }
+}
+@keyframes hiveStageGlow {
+  0%, 100% { filter: drop-shadow(0 0 0 rgba(34, 211, 245, 0)); }
+  50%      { filter: drop-shadow(0 0 34px rgba(34, 211, 245, 0.75)); }
+}
+@keyframes hivePulse {
+  0%   { opacity: 0.9; transform: scale(0.3); }
+  100% { opacity: 0;   transform: scale(3.2); }
+}
+@keyframes hiveBackdropIn {
+  to { opacity: 0.3; }
+}
+@keyframes hiveGlowIn {
+  to { opacity: 1; }
+}
+@keyframes hiveGlow {
+  0%, 100% { opacity: 0.7; transform: scale(0.95); }
+  50%      { opacity: 1;   transform: scale(1.06); }
+}
+@keyframes hiveFadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes hiveBar {
+  0%   { transform: translateX(-120%); }
+  100% { transform: translateX(360%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #hive-loader .hive-cube,
+  #hive-loader .hive-loader__word,
+  #hive-loader .hive-loader__bar,
+  #hive-loader .hive-loader__glow,
+  #hive-loader .hive-loader__backdrop {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  #hive-loader .hive-loader__pulse,
+  #hive-loader .hive-shine,
+  #hive-loader .hive-sparkle { display: none; }
+}
+
+/* ---------------------------------------------------------
+   Product screenshot reveal (components/ProjectVisual.tsx).
+   Frame rises in, the screen pulls back from a close-up, then
+   a magnified detail pops out of it. `.vis-in` is added by an
+   IntersectionObserver; gated on .reveal-ready like data-reveal.
+   --------------------------------------------------------- */
+html.reveal-ready .vis-frame {
+  opacity: 0;
+  transform: translateY(28px) scale(0.93);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+html.reveal-ready .vis-zoom {
+  transform: scale(1.45);
+  transition: transform 1.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+}
+html.reveal-ready .vis-chip {
+  opacity: 0;
+  transform: scale(0.3) translateY(24px);
+  transition: opacity 0.5s ease 1.1s,
+    transform 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 1.1s;
+}
+html.reveal-ready .vis-in .vis-frame {
+  opacity: 1;
+  transform: none;
+}
+html.reveal-ready .vis-in .vis-zoom {
+  transform: scale(1);
+}
+html.reveal-ready .vis-in:hover .vis-zoom {
+  transform: scale(1.06);
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+html.reveal-ready .vis-in .vis-chip {
+  opacity: 1;
+  transform: none;
+}
+.vis-kb {
+  transform-origin: 50% 0;
+  animation: vis-kb 18s ease-in-out 2.2s infinite alternate;
+}
+.vis-float {
+  animation: vis-float 6s ease-in-out 2.2s infinite;
+}
+@keyframes vis-kb {
+  from { transform: scale(1); }
+  to   { transform: scale(1.04); }
+}
+@keyframes vis-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+/* Styled frame: a thin aqua -> azure gradient edge that slowly sweeps
+   round the screenshot, with a soft glow behind it. */
+@property --vis-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+.vis-border {
+  position: relative;
+  background: conic-gradient(
+    from var(--vis-angle),
+    #22d3f5,
+    #0a6cff 30%,
+    rgba(10, 108, 255, 0.25) 50%,
+    #0a6cff 70%,
+    #22d3f5
+  );
+  animation: vis-spin 9s linear infinite;
+  box-shadow: 0 30px 70px -30px rgba(10, 108, 255, 0.45);
+}
+.vis-border::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  z-index: -1;
+  border-radius: inherit;
+  background: inherit;
+  filter: blur(22px);
+  opacity: 0.4;
+}
+@keyframes vis-spin {
+  to { --vis-angle: 360deg; }
+}
+
+/* Close-up chip: a aqua edge with a bright shimmer that sweeps the
+   opposite way to the main frame, so the two read as a pair. */
+.vis-border-chip {
+  background: conic-gradient(
+    from var(--vis-angle),
+    #0a8fc0,
+    #22d3f5 25%,
+    #e6fdff 40%,
+    #22d3f5 55%,
+    #0a8fc0 75%,
+    #22d3f5
+  );
+  animation: vis-spin-rev 6s linear infinite;
+  box-shadow: 0 26px 50px -20px rgba(0, 0, 0, 0.45),
+    0 0 26px -6px rgba(34, 211, 245, 0.55);
+}
+@keyframes vis-spin-rev {
+  from { --vis-angle: 360deg; }
+  to   { --vis-angle: 0deg; }
+}
+
+/* Button hover: a colour wave sweeps in from the left. */
+.btn-wave {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.btn-wave::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -60px;
+  width: calc(100% + 120px);
+  z-index: -1;
+  background: linear-gradient(90deg, #0066ff, #0224b0);
+  border-radius: 0 60px 60px 0 / 0 50% 50% 0;
+  transform: translateX(calc(-100% - 2px));
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-wave:hover::before,
+.btn-wave:focus-visible::before {
+  transform: translateX(0);
+}
+.btn-wave:hover,
+.btn-wave:focus-visible {
+  color: #fff;
+}
+.btn-wave--outline:hover,
+.btn-wave--outline:focus-visible {
+  border-color: transparent;
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn-wave::before { transition-duration: 0.01ms; }
+}
+
+/* Card hover: a light colour wave sweeps in from the left behind the content. */
+.card-wave {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.card-wave::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -60px;
+  width: calc(100% + 120px);
+  z-index: -1;
+  /* the logo's own blues (#3debff cyan to #0066ff), kept light */
+  background: linear-gradient(90deg, rgba(61, 235, 255, 0.28), rgba(0, 102, 255, 0.14));
+  border-radius: 0 60px 60px 0 / 0 50% 50% 0;
+  transform: translateX(calc(-100% - 2px));
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+.card-wave:hover::before,
+.card-wave:focus-visible::before,
+/* card sits inside a hoverable .group parent (e.g. a step with a badge above its card) */
+.group:hover > .card-wave--group::before {
+  transform: translateX(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .card-wave::before { transition-duration: 0.01ms; }
+}
+
+/* Product preview swap: the new screen slides in from the right and settles, then a light sweep crosses it */
+@keyframes shotIn {
+  0% { opacity: 0; transform: translateX(48px) scale(0.94) rotate(1.2deg); filter: blur(6px); }
+  60% { opacity: 1; filter: blur(0); }
+  100% { opacity: 1; transform: none; filter: blur(0); }
+}
+@keyframes shotSweep {
+  0% { transform: translateX(-120%) skewX(-18deg); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateX(260%) skewX(-18deg); opacity: 0; }
+}
+@keyframes shotText {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: none; }
+}
+.shot-swap { animation: shotIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.shot-swap .shot-frame { position: relative; }
+.shot-swap .shot-frame::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  animation: shotSweep 1s 0.35s ease-out both;
+}
+.shot-swap-text { animation: shotText 0.5s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .shot-swap, .shot-swap-text, .shot-swap .shot-frame::after { animation: none; }
+}
+
+/* Footer: the brand blue on the light theme, the page's own dark surface on the dark theme. */
+.site-footer {
+  background-color: #0078C8;
+}
+html:not(.light) .site-footer {
+  background-color: rgb(var(--surface));
+  border-top: 1px solid rgb(var(--border));
+}
+
+/* Phone button groups: stack, full width, text centred, so every action is an easy tap target. */
+@media (max-width: 639px) {
+  .cta-row > a,
+  .cta-row > button {
+    display: flex;
+    width: 100%;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+}
