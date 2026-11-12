@@ -91,10 +91,10 @@ const examples: Example[] = [
   {
     id: "retry",
     tab: "A failure worth retrying",
-    raw: 'Spring Boot /analyze endpoint returned 503 Service Unavailable after 3 retries.',
+    raw: 'Classification service returned error 503 after 3 retries.',
     title: "The classification service had a problem",
     why: "The resume was read correctly, but the service that classifies it returned an error on every attempt.",
-    next: "Retry it. If it keeps failing, tell engineering the classification service is erroring.",
+    next: "Retry it. If it keeps failing, contact support.",
     canRetry: true,
     resolveAs: "Resolved",
   },
@@ -259,7 +259,7 @@ export default function IngestionFlow() {
 
           <div data-reveal className="mt-8 overflow-hidden rounded-3xl border border-border bg-surface2 shadow-[0_40px_100px_-40px_rgba(0,120,200,0.45)]">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-5 py-3">
-              <span className="label-mono text-[12px] text-mist">Failures · one dead-letter item</span>
+              <span className="label-mono text-[12px] text-mist">Failures · one item</span>
               <div className="flex items-center gap-3">
                 <span className="label-mono rounded-full border border-border px-2.5 py-1 text-[12px] text-mist">Illustrative</span>
                 <button

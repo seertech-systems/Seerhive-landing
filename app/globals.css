@@ -436,7 +436,9 @@ html.hive-seen #hive-loader {
   margin-top: 8px;
   font-family: var(--font-body), sans-serif;
   font-size: 12px;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.16em;
+  text-align: center;
+  max-width: 88vw;
   text-transform: uppercase;
   color: rgb(var(--mist));
 }
@@ -710,9 +712,8 @@ html.reveal-ready .vis-in .vis-chip {
 
 /* Product preview swap: the new screen slides in from the right and settles, then a light sweep crosses it */
 @keyframes shotIn {
-  0% { opacity: 0; transform: translateX(48px) scale(0.94) rotate(1.2deg); filter: blur(6px); }
-  60% { opacity: 1; filter: blur(0); }
-  100% { opacity: 1; transform: none; filter: blur(0); }
+  0% { opacity: 0; transform: translateX(60px); }
+  100% { opacity: 1; transform: none; }
 }
 @keyframes shotSweep {
   0% { transform: translateX(-120%) skewX(-18deg); opacity: 0; }
@@ -723,7 +724,7 @@ html.reveal-ready .vis-in .vis-chip {
   0% { opacity: 0; transform: translateY(10px); }
   100% { opacity: 1; transform: none; }
 }
-.shot-swap { animation: shotIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.shot-swap { animation: shotIn 1.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
 .shot-swap .shot-frame { position: relative; }
 .shot-swap .shot-frame::after {
   content: "";
@@ -732,9 +733,9 @@ html.reveal-ready .vis-in .vis-chip {
   inset: 0;
   width: 40%;
   background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
-  animation: shotSweep 1s 0.35s ease-out both;
+  animation: shotSweep 1.2s 0.7s ease-out both;
 }
-.shot-swap-text { animation: shotText 0.5s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.shot-swap-text { animation: shotText 0.8s 0.5s ease-out both; }
 @media (prefers-reduced-motion: reduce) {
   .shot-swap, .shot-swap-text, .shot-swap .shot-frame::after { animation: none; }
 }
@@ -759,4 +760,16 @@ html:not(.light) .site-footer {
     justify-content: center;
     text-align: center;
   }
+}
+
+/* Wide screens: the site-wide page container grows past 1280px so sections fill the window instead of sitting in a narrow column. */
+@media (min-width: 1700px) {
+  .max-w-7xl { max-width: 1760px; }
+  .max-w-7xl.px-6, .max-w-7xl.lg\:px-10, .max-w-7xl.xl\:px-10 { padding-left: 4rem; padding-right: 4rem; }
+}
+
+/* Narrower content containers (contact, comparison, voice, platform sections) also open up, but stay narrower than the full-width ones. */
+@media (min-width: 1700px) {
+  .max-w-6xl { max-width: 1560px; }
+  .max-w-5xl { max-width: 1400px; }
 }

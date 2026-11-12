@@ -2,13 +2,15 @@
 
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
+import { isAdminUser } from "@/features/auth/tokenStorage";
 import ThemeToggle from "./ThemeToggle";
+import UserMenu from "./auth/UserMenu";
 import ModulesMenu from "./ModulesMenu";
-import { projects } from "@/lib/projects";
+import { navProjects as projects, productOf } from "@/lib/projects";
 import ModuleIcon from "./ModuleIcon";
 
 const links = [
-  { href: "/#seerhive", label: "SeerHive HRMS" },
+  { href: "/#seerhive", label: "SeerHive HRMS + ATS" },
   { href: "/#why", label: "Why SeerHive" },
   { href: "/#faq", label: "FAQ" },
   { href: "/contact", label: "Contact" },
@@ -21,7 +23,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 inset-x-0 z-50 border-b border-border/60 bg-ink/80 backdrop-blur-md">
-      <div className="mx-auto max-w-7xl px-6 xl:px-10 h-[72px] flex items-center justify-between">
+      <div className="mx-auto max-w-7xl min-[1700px]:max-w-[1760px] px-6 xl:px-10 min-[1700px]:px-16 h-[72px] flex items-center justify-between">
         <a href="/" className="flex items-center gap-3 group shrink-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/logo.svg" alt="" className="h-10 w-auto" />
@@ -29,13 +31,13 @@ export default function Navbar() {
             <span className="font-display font-extrabold tracking-tight text-paper text-[22px]">
               Seer<span className="text-aqua">Hive</span>
             </span>
-            <span className="label-mono hidden whitespace-nowrap text-[12px] font-semibold text-mist mt-1 lg:block xl:text-[12px]">
-              One Hive, Infinite Solutions
+            <span className="label-mono hidden whitespace-nowrap text-[10px] font-semibold !tracking-[0.06em] text-mist mt-1 lg:block">
+              Intelligent Solutions, Infinite Possibilities
             </span>
           </span>
         </a>
 
-        <nav className="hidden md:flex items-center gap-4 whitespace-nowrap label-mono text-[12px] font-semibold text-paper xl:gap-8 xl:text-[14px]">
+        <nav className="hidden md:flex items-center gap-5 whitespace-nowrap label-mono text-[12px] font-semibold text-paper xl:gap-10 xl:text-[14px]">
           <ModulesMenu />
           {links.map((l) => (
             <a key={l.href} href={l.href} className="hover:text-aqua transition-colors">
@@ -47,18 +49,7 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-3 whitespace-nowrap">
           <ThemeToggle />
           {user ? (
-            <>
-              <span className="max-w-[140px] truncate text-[14px] font-semibold text-paper" title={user.email}>
-                {user.name || user.email}
-              </span>
-              <button
-                type="button"
-                onClick={logout}
-                className="btn-wave btn-wave--outline rounded-full border border-border px-4 py-2 text-[14px] font-semibold text-paper transition-colors"
-              >
-                Log out
-              </button>
-            </>
+            <UserMenu />
           ) : (
             <>
               <button
@@ -68,6 +59,7 @@ export default function Navbar() {
               >
                 Log in
               </button>
+              {/* Sign up hidden for now
               <button
                 type="button"
                 onClick={() => openAuth("signup")}
@@ -75,6 +67,7 @@ export default function Navbar() {
               >
                 Sign up
               </button>
+              */}
             </>
           )}
         </div>
@@ -101,7 +94,7 @@ export default function Navbar() {
 
       {open && (
         <div className="md:hidden max-h-[calc(100dvh-72px)] overflow-y-auto overscroll-contain scrollbar-none border-t border-border/60 bg-ink px-6 py-5 flex flex-col gap-4">
-          {/* AI Modules — expandable */}
+          {/* Products — expandable */}
           <div className="flex flex-col">
             <button
               type="button"
@@ -109,7 +102,7 @@ export default function Navbar() {
               onClick={() => setModulesOpen((v) => !v)}
               className="flex items-center justify-between label-mono text-[14px] text-mist hover:text-paper transition-colors"
             >
-              <span>AI Modules</span>
+              <span>Products</span>
               <svg
                 width="11"
                 height="11"
@@ -124,9 +117,12 @@ export default function Navbar() {
 
             {modulesOpen && (
               <div className="mt-3 flex flex-col gap-1 border-l border-border/70 pl-3">
-                {projects.map((p) => (
+                {projects.map((p, i) => (
+                  <div key={p.id}>
+                  {(i === 0 || productOf(projects[i - 1])?.id !== productOf(p)?.id) && (
+                    <p className="label-mono mt-2 px-1 text-[12px] font-semibold text-azure-soft">{productOf(p)?.name}</p>
+                  )}
                   <a
-                    key={p.id}
                     href={p.href}
                     onClick={() => setOpen(false)}
                     className="flex items-center gap-3 rounded-lg px-1 py-2 hover:bg-surface2/60 transition-colors"
@@ -143,6 +139,7 @@ export default function Navbar() {
                       </span>
                     </span>
                   </a>
+                  </div>
                 ))}
               </div>
             )}
@@ -159,6 +156,26 @@ export default function Navbar() {
             </a>
           ))}
           {user ? (
+            <>
+            {isAdminUser(user) && (
+              <a
+                href="/admin"
+                onClick={() => setOpen(false)}
+                className="btn-wave btn-wave--outline mt-1 rounded-full border border-border px-4 py-2.5 text-center text-[14px] font-semibold text-paper"
+              >
+                Admin dashboard
+              </a>
+            )}
+            <button
+              type="button"
+              onClick={() => {
+                openAuth("password");
+                setOpen(false);
+              }}
+              className="btn-wave btn-wave--outline mt-1 rounded-full border border-border px-4 py-2.5 text-center text-[14px] font-semibold text-paper"
+            >
+              Change password
+            </button>
             <button
               type="button"
               onClick={() => {
@@ -169,8 +186,9 @@ export default function Navbar() {
             >
               Log out ({user.name || user.email})
             </button>
+            </>
           ) : (
-            <div className="mt-1 grid grid-cols-2 gap-3">
+            <div className="mt-1 grid grid-cols-1 gap-3">
               <button
                 type="button"
                 onClick={() => {
@@ -181,6 +199,7 @@ export default function Navbar() {
               >
                 Log in
               </button>
+              {/* Sign up hidden for now
               <button
                 type="button"
                 onClick={() => {
@@ -191,6 +210,7 @@ export default function Navbar() {
               >
                 Sign up
               </button>
+              */}
             </div>
           )}
         </div>

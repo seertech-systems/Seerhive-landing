@@ -3,7 +3,7 @@ const rows = [
   { label: "Answering questions", ivr: "Plays fixed recordings", agent: "Answers the actual question from your documents" },
   { label: "Changing the content", ivr: "Re-record prompts, rebuild menus", agent: "Update a document and the agent's answers follow" },
   { label: "When it can't help", ivr: "Caller ends up in a queue or a dead end", agent: "Collects details and creates a callback request for your team" },
-  { label: "Outbound calling", ivr: "A separate dialler, often a recorded message", agent: "The same agent holds a two-way conversation on outbound campaigns" },
+  { label: "Outbound calling", ivr: "A separate dialer, often a recorded message", agent: "The same agent holds a two-way conversation on outbound campaigns" },
   { label: "Insight after the call", ivr: "Key presses and call duration", agent: "Full transcript, summary, and the information the caller gave" },
   { label: "Languages", ivr: "One recording per language per menu", agent: "An agent set to the language your callers speak" },
 ];
@@ -25,7 +25,7 @@ export default function VoiceVsIvr() {
               <tr>
                 <th className="px-5 py-5 font-medium text-mist"> </th>
                 <th className="px-5 py-5 font-medium text-mist">Traditional IVR</th>
-                <th className="whitespace-nowrap bg-[#0078C8] px-5 py-5 font-display text-[16px] font-semibold text-white">AI Voice Agent</th>
+                <th className="whitespace-nowrap bg-[#0078C8] px-5 py-5 font-display text-[16px] font-semibold text-white">SeerVoiz AI voice agent</th>
               </tr>
             </thead>
             <tbody>
@@ -42,8 +42,8 @@ export default function VoiceVsIvr() {
 
         <p data-reveal className="mx-auto mt-6 max-w-2xl text-center text-[16px] leading-relaxed text-mist">
           Both have a place. For a fixed message with a key press, such as confirming an interview slot, use{" "}
-          <a href="/projects/ivr-outbound" className="font-medium text-azure-soft hover:text-aqua">IVR Outbound</a>. For callers who ask
-          questions in their own words, use the AI Voice Agent.
+          <a href="/projects/ivr-outbound" className="font-medium text-azure-soft hover:text-aqua">Intelligent Conversational IVR</a>. For callers who ask
+          questions in their own words, use the SeerVoiz AI voice agent.
         </p>
       </div>
     </section>

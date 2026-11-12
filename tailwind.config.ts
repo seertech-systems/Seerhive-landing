@@ -64,6 +64,10 @@ const config: Config = {
           "0%": { opacity: "0", transform: "translateY(6px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
+        drawerIn: {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(0)" },
+        },
         floatIn: {
           "0%": { opacity: "0", transform: "translateY(10px) scale(0.96)" },
           "100%": { opacity: "1", transform: "translateY(0) scale(1)" },
@@ -75,6 +79,7 @@ const config: Config = {
         pulseGlow: "pulseGlow 3.2s ease-in-out infinite",
         fadeIn: "fadeIn 0.35s ease both",
         floatIn: "floatIn 0.25s ease both",
+        drawerIn: "drawerIn 0.25s ease both",
       },
     },
   },

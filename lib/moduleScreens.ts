@@ -42,7 +42,7 @@ export const moduleScreens: Record<string, ModuleScreen[]> = {
       alt: "Resume Enhancer showing the improved resume with highlighted changes",
     },
   ],
-  "resume-analyser": [
+  "resume-analyzer": [
     {
       id: "weights",
       tab: "Scoring weights",
@@ -66,7 +66,7 @@ export const moduleScreens: Record<string, ModuleScreen[]> = {
       tab: "Add resumes",
       title: "Drop in the resumes to compare",
       text: "Add several resumes in one go. You can review the list before running the analysis.",
-      points: ["PDF, DOCX or TXT resumes", "Several files at once", "Check the list, then analyse", "Back to change any earlier step"],
+      points: ["PDF, DOCX or TXT resumes", "Several files at once", "Check the list, then analyze", "Back to change any earlier step"],
       image: "/screens/resume-analyser/3.png",
       alt: "Resume Analyzer with three resumes added",
     },
@@ -87,46 +87,6 @@ export const moduleScreens: Record<string, ModuleScreen[]> = {
       points: ["Score ring and match status", "Experience, average tenure and stability", "Key strengths and areas of concern", "Download the analysis for that person"],
       image: "/screens/resume-analyser/5.png",
       alt: "Resume Analyzer candidate profile with strengths and concerns",
-    },
-  ],
-  "resume-templates": [
-    {
-      id: "profile",
-      tab: "Choose a level",
-      title: "Start from experience level and target role",
-      text: "Pick how much experience the person has, then optionally a target role and domain. The level decides what the template shows first.",
-      points: ["Fresher to Executive levels", "Optional target role and domain", "Quick suggestions to tap", "Single-column or two-column layout"],
-      image: "/screens/resume-templates/1.png",
-      alt: "Resume Template Builder with Mid-level, Backend Developer and SaaS chosen",
-    },
-    {
-      id: "result",
-      tab: "Generated template",
-      title: "Get a ready-to-edit resume template",
-      text: "The builder writes a complete template with placeholders for personal details. Download it as a Word document, or generate the other layout to compare.",
-      points: ["Summary, skills, experience, projects and education", "Placeholders where your details go", "Download as a Word document", "Generate the two-column version too"],
-      image: "/screens/resume-templates/2.png",
-      alt: "Resume Template Builder showing a generated single-column template",
-    },
-  ],
-  "interview-questions": [
-    {
-      id: "input",
-      tab: "Job description and types",
-      title: "Describe the role, then choose the questions",
-      text: "Paste a job description, pick coding, theoretical or scenario questions, and set how many you need.",
-      points: ["Questions for a role or for a candidate", "Coding, theoretical and scenario types", "Between 5 and 40 questions", "A summary of your question set"],
-      image: "/screens/interview-questions/1.png",
-      alt: "Interview Question Generator with a job description and question types chosen",
-    },
-    {
-      id: "output",
-      tab: "Questions and answers",
-      title: "Get questions with an expected answer for each",
-      text: "Every question comes with an expected answer you can show or hide. Search the set, copy a question, or download everything as a PDF or Excel file.",
-      points: ["Expected answer on demand", "Search questions and answers", "Download as PDF or Excel", "Generate a fresh set from the same input"],
-      image: "/screens/interview-questions/2.png",
-      alt: "Interview Question Generator showing ten questions with an expected answer open",
     },
   ],
   "ingestion-dashboard": [
@@ -183,26 +143,6 @@ export const moduleScreens: Record<string, ModuleScreen[]> = {
       points: ["Refreshes every 10 seconds", "Pause while you read", "Statuses including Completed, Failed, Retry Pending, Duplicate and Not A Resume", "Time, job ID, source and account on every line"],
       image: "/screens/ingestion-dashboard/activity.png",
       alt: "Ingestion Dashboard live activity feed with a Pause button",
-    },
-  ],
-  "jd-preparation": [
-    {
-      id: "input",
-      tab: "Describe the role",
-      title: "Write about the role in your own words",
-      text: "Type rough notes about the role. The generator turns them into a structured job description.",
-      points: ["Plain language is fine, up to 10,000 characters", "Paste text or upload a file", "A checklist of what to include", "Ctrl + Enter to generate"],
-      image: "/screens/jd-preparation/1.png",
-      alt: "Job Description Generator with rough notes typed in",
-    },
-    {
-      id: "output",
-      tab: "Finished description",
-      title: "Get a complete job description",
-      text: "The result has the role, company, location, experience and employment type, then a summary, responsibilities, skills and qualifications. Edit any line, then download or copy it.",
-      points: ["Structured sections ready to post", "Edit any line before you export", "Download as PDF or Word", "Generate again for a different version"],
-      image: "/screens/jd-preparation/2.png",
-      alt: "Job Description Generator showing a finished Backend Developer description",
     },
   ],
 };

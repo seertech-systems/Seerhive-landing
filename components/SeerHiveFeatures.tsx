@@ -11,7 +11,7 @@ const features = [
   {
     tag: "Jobs",
     title: "Jobs for your company and your clients",
-    text: "Record each job with its salary, experience range, locations and type. Permanent, contract and client permanent jobs are kept apart, so each follows its own rules.",
+    text: "Record each job with its salary, experience range, locations and type. Permanent, contract and client permanent jobs are kept separately, so each follows its own rules.",
     points: ["Job type shown on every card", "Salary, experience and locations at a glance", "Active status for each job", "Open the full job in one click"],
     image: "/screens/hrms/jobs.png",
     alt: "SeerHive job list with salary, experience and job type",
@@ -42,7 +42,7 @@ const features = [
   },
   {
     tag: "Invoicing",
-    title: "Invoices with the tax already worked out",
+    title: "Invoices with GST calculated automatically",
     text: "Project and permanent invoices, proformas and rate cards sit under one screen. Each invoice shows the amount before tax, the GST and the total payable, with its invoice and due dates.",
     points: ["Pending, overdue, paid and rejected filters", "Amount before tax, GST and total payable", "View or download each invoice", "Standard and project rate cards in the same place"],
     image: "/screens/hrms/invoicing.png",
@@ -58,11 +58,11 @@ const features = [
   },
   {
     tag: "Team overview",
-    title: "Hours, utilisation and leave for each person",
-    text: "Managers and HR see, for any month, the modules each employee works on, billable and non-billable hours, utilisation, attendance and leave balance.",
-    points: ["Choose the month, year and module", "Billable and non-billable hours", "Utilisation shown as a bar", "Attendance and leave balance on the same row"],
+    title: "Hours, utilization and leave for each person",
+    text: "Managers and HR see, for any month, the modules each employee works on, billable and non-billable hours, utilization, attendance and leave balance.",
+    points: ["Choose the month, year and module", "Billable and non-billable hours", "Utilization shown as a bar", "Attendance and leave balance on the same row"],
     image: "/screens/hrms/team.png",
-    alt: "SeerHive team overview with hours, utilisation and leave",
+    alt: "SeerHive team overview with hours, utilization and leave",
   },
 ];
 

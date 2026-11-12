@@ -9,9 +9,12 @@ import MockPanel from "./MockPanel";
 export default function ProjectVisual({
   project,
   compact = false,
+  showTitle = true,
 }: {
   project: Project;
   compact?: boolean;
+  /** Hide the blue window title bar (used where the name is already printed next to the screenshot). */
+  showTitle?: boolean;
 }) {
   if (!project.screenshot || compact) {
     return <MockPanel variant={project.mock} compact={compact} />;
@@ -20,9 +23,11 @@ export default function ProjectVisual({
   return (
     <div className="flex h-full w-full items-center">
       <div className="shot-frame group w-full overflow-hidden rounded-2xl border border-border/70 bg-surface shadow-[0_40px_100px_-40px_rgba(10,108,255,0.35)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_50px_110px_-40px_rgba(10,108,255,0.5)]">
-        <div className="flex items-center gap-1.5 border-b border-[#0078C8] bg-[#0078C8] px-4 py-2.5">
-          <span className="ml-3 label-mono text-[12px] text-white">{project.name}</span>
-        </div>
+        {showTitle && (
+          <div className="flex items-center gap-1.5 border-b border-[#0078C8] bg-[#0078C8] px-4 py-2.5">
+            <span className="ml-3 label-mono text-[12px] text-white">{project.name}</span>
+          </div>
+        )}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={project.screenshot}

@@ -19,8 +19,8 @@ export default function PlatformOverview() {
             <span className="brand-gradient-x bg-clip-text text-transparent">one system</span> underneath.
           </h2>
           <p data-reveal className="mt-5 leading-relaxed text-mist">
-            The AI modules, IVR Outbound and the AI Voice Agent each do one job well. SeerHive is the HRMS under them. It keeps the
-            candidate, the client, the timesheet and the invoice in one record.
+            SeerHive Recruit AI, SeerVoiz AI and SeerHive Invoicing each do one job well. The SeerHive HRMS + ATS is the system under them. It keeps the
+            candidate, the employee, the timesheet and the invoice in one record.
           </p>
         </div>
 

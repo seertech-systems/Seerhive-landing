@@ -7,5 +7,7 @@ export const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:909
 export const ENDPOINTS = {
   signup: "/auth/signup",
   login: "/auth/login",
+  adminLogin: "/auth/admin/login",
+  changePassword: "/auth/me/password",
   me: "/auth/me",
 } as const;

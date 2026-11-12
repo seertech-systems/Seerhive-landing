@@ -4,21 +4,21 @@ import { useEffect, useRef, useState } from "react";
 import HexWave, { type Speaker } from "./HexWave";
 
 // A short sample exchange, written for this page. It is not a recorded call.
-const lines: { who: "caller" | "agent"; text: string }[] = [
+const lines: { who: "caller" | "agent"; text: string; source?: string }[] = [
   { who: "caller", text: "What are your OPD timings on Saturday?" },
-  { who: "agent", text: "On Saturdays the OPD is open from 9 in the morning to 1 in the afternoon." },
+  { who: "agent", text: "On Saturdays the OPD is open from 9 AM to 1 PM.", source: "Answered from opd-timings.pdf" },
   { who: "caller", text: "Can I book the cardiologist?" },
   { who: "agent", text: "I'll note your details and the front desk will call you to confirm a slot." },
 ];
 
-const chips = ["Natural voice", "Answers from your documents", "Inbound and outbound", "Hands off to your team", "English and Indian languages"];
+const chips = ["Natural voice", "Answers from your documents", "Inbound and outbound", "Smooth handoff to your team", "English and Indian languages", "Available 24/7"];
 
 /**
  * A banner straight under the hero that puts the newest product first: a live hexagon
  * voice meter beside a short looping exchange, with one clear way into the full page.
  */
 export default function VoiceSpotlight() {
-  const [shown, setShown] = useState(1);
+  const [shown, setShown] = useState(2);
   const [visible, setVisible] = useState(false);
   const [reduce, setReduce] = useState(false);
   const ref = useRef<HTMLElement>(null);
@@ -38,7 +38,7 @@ export default function VoiceSpotlight() {
       return;
     }
     if (!visible) return;
-    const t = setTimeout(() => setShown((n) => (n >= lines.length ? 1 : n + 1)), shown >= lines.length ? 3600 : 2600);
+    const t = setTimeout(() => setShown((n) => (n >= lines.length ? 2 : n + 2)), shown >= lines.length ? 3600 : 2600);
     return () => clearTimeout(t);
   }, [visible, reduce, shown]);
 
@@ -58,15 +58,19 @@ export default function VoiceSpotlight() {
                 <span className="h-1.5 w-1.5 animate-pulseGlow rounded-full bg-white" />
                 New
               </span>
-              <span className="label-mono text-[12px] text-mist">SeerHive AI Voice Agent</span>
+              <span className="label-mono text-[12px] text-mist">SeerVoiz AI</span>
             </div>
 
             <h2 className="mt-5 font-display text-3xl font-semibold leading-[1.1] tracking-tight text-paper sm:text-4xl lg:text-[2.6rem]">
-              An AI agent that answers your calls, <span className="brand-gradient-x bg-clip-text text-transparent">from your own knowledge</span>.
+              Smarter conversations. <span className="brand-gradient-x bg-clip-text text-transparent">Stronger customer connections.</span>
             </h2>
-            <p className="mt-4 max-w-xl text-[16px] leading-relaxed text-mist">
-              Callers speak in their own words and get answers from the documents you upload. When someone needs a person, it takes
-              their details and sends your team a callback request. It also runs outbound campaigns from a contact list.
+            <p className="mt-4 max-w-xl text-[18px] font-medium leading-relaxed text-paper">
+              Human-like AI voice agents that answer, call and follow up, around the clock, straight from your knowledge base.
+            </p>
+            <p className="mt-3 max-w-xl text-[16px] leading-relaxed text-mist">
+              Callers speak naturally and get instant answers from the documents you upload. When a caller needs a person, the
+              agent captures their details and books a callback for your team. It also runs outbound reminder and follow-up
+              campaigns from your contact lists.
             </p>
 
             <ul className="mt-6 flex flex-wrap gap-2">
@@ -85,7 +89,7 @@ export default function VoiceSpotlight() {
                 href="/projects/voice-ai-agent#call-demo"
                 className="btn-wave btn-wave--outline rounded-full border border-border bg-surface px-6 py-3.5 text-[16px] font-semibold text-paper transition-colors"
               >
-                See a sample call
+                Hear a sample call
               </a>
             </div>
           </div>
@@ -101,17 +105,18 @@ export default function VoiceSpotlight() {
               {lines.slice(Math.max(0, shown - 2), shown).map((l, i, arr) => (
                 <div
                   key={`${shown}-${i}`}
-                  className={`flex ${l.who === "agent" ? "justify-start" : "justify-end"} ${i === arr.length - 1 ? "animate-fadeIn" : "opacity-60"}`}
+                  className={`flex ${l.who === "agent" ? "justify-start" : "justify-end"} ${i === arr.length - 1 ? "animate-fadeIn" : ""}`}
                 >
                   <div
                     className={`max-w-[90%] rounded-2xl px-3.5 py-2 text-[14px] leading-snug text-paper ${
-                      l.who === "agent" ? "rounded-tl-sm border border-aqua/30 bg-aqua/10" : "rounded-tr-sm border border-azure/30 bg-azure/10"
+                      l.who === "agent" ? "rounded-tl-sm border border-aqua/30 bg-aqua/10" : "rounded-tr-sm border border-azure/60 bg-azure/20"
                     }`}
                   >
                     <span className={`label-mono mb-0.5 block text-[12px] ${l.who === "agent" ? "text-aqua" : "text-azure-soft"}`}>
                       {l.who === "agent" ? "Agent" : "Caller"}
                     </span>
                     {l.text}
+                    {l.source && <span className="mt-1 block text-[12px] text-mist">{l.source}</span>}
                   </div>
                 </div>
               ))}

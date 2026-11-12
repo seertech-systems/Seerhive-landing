@@ -2,12 +2,18 @@ export type AuthUser = {
   id?: string;
   name: string;
   email: string;
+  /** Role names without the ROLE_ prefix, e.g. ["ADMIN"]. */
+  roles?: string[];
 };
 
-export type AuthMode = "login" | "signup";
+export type AuthMode = "login" | "signup" | "password";
 
 export type SignupPayload = { name: string; email: string; password: string };
-export type LoginPayload = { email: string; password: string };
+/** `login` is the account's email or username. `admin` uses POST /auth/admin/login (ADMIN accounts only). */
+export type LoginPayload = { login: string; password: string; admin?: boolean };
+
+/** PUT /auth/me/password */
+export type ChangePasswordPayload = { currentPassword: string; newPassword: string };
 
 /** What POST /auth/signup and POST /auth/login return. */
 export type AuthResponse = {

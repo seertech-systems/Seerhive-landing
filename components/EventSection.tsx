@@ -18,7 +18,7 @@ export default function EventSection() {
             </h2>
             <p data-reveal className="mt-4 max-w-xl mx-auto text-mist leading-relaxed">
               We'll walk you through the platform using your own resumes and
-              job descriptions — the AI modules, IVR Outbound, the AI Voice Agent and SeerHive —
+              job descriptions — SeerHive Recruit AI, SeerVoiz AI, SeerHive Invoicing and the HRMS —
               online or on-site, wherever your team is.
             </p>
 

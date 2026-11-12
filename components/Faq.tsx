@@ -1,43 +1,43 @@
 const faqs = [
   {
-    q: "How do the AI modules, IVR Outbound, the AI Voice Agent and SeerHive fit together?",
-    a: "SeerHive is the HRMS. It tracks candidates, clients, jobs, interviews, timesheets and invoicing. The AI modules (Resume Enhancer, Resume Analyser, Resume Template Builder, Interview Question Generator and JD Generator), IVR Outbound and the AI Voice Agent each handle one task in the hiring process. You can use them on their own or together with SeerHive.",
+    q: "How do SeerHive Recruit AI, SeerVoiz AI, SeerHive Invoicing and the HRMS fit together?",
+    a: "SeerHive HRMS + ATS is the integrated HR and talent management platform. It covers recruitment, employee management, timesheets, leave, payroll and HR analytics. SeerHive Recruit AI (AI Resume Enhancer, AI Resume Analyzer and the Resume Data Pipeline) automates hiring, SeerVoiz AI adds voice intelligence, and SeerHive Invoicing automates invoice processing. You can use each on its own or together.",
   },
   {
     q: "Can a staffing agency use SeerHive for multiple clients?",
     a: "Yes. SeerHive manages client companies and their jobs along with the roles you hire for directly. It also tracks contract and permanent placements separately.",
   },
   {
-    q: "Can I use the AI modules without SeerHive?",
-    a: "Yes. Each module works on its own. You can score resumes, generate job descriptions, prepare interview questions, build resume templates or enhance resumes without SeerHive. SeerHive is where a candidate is tracked once they enter your pipeline.",
+    q: "Can I use the AI products without the HRMS?",
+    a: "Yes. Each product works on its own. You can analyze and enhance resumes, run voice agents or process invoices without the HRMS. The HRMS is where a candidate or employee is tracked once they enter your pipeline.",
   },
   {
-    q: "What does IVR Outbound do?",
-    a: "It makes personalised outbound calls from a call flow you build once, such as interview reminders, appointment confirmations or payment reminders. Each call can go out immediately, at a fixed time, or a set number of minutes before that person's own appointment. Unanswered calls are retried, Do-Not-Call numbers are skipped, and the key each contact pressed is saved. You can download the results of a campaign as a spreadsheet.",
+    q: "What is Intelligent Conversational IVR?",
+    a: "It is the SeerVoiz AI product for keypad reminder and confirmation calls at scale. You design a Press 1 / Press 2 call flow, add your contacts, and callers press 1 to confirm or 2 to reschedule. You see every response in real time. For open conversations that answer questions, see the AI Voice Agent.",
   },
   {
-    q: "What does the AI Voice Agent do, and how is it different from IVR Outbound?",
-    a: "IVR Outbound plays your message and records a key press, which suits a fixed confirmation. The AI Voice Agent holds a spoken conversation: it answers inbound calls, answers questions from the documents you upload, runs outbound campaigns, and passes the caller to your team as a callback request when it cannot help. Every call is logged with a transcript and a summary.",
+    q: "What does SeerVoiz AI do?",
+    a: "SeerVoiz AI (voice intelligence powered by AI) deploys human-like AI voice agents that handle inbound customer queries and outbound calls autonomously: customer support, reminders and follow-ups, with answers from your knowledge base, in multilingual, context-aware conversations available 24/7. Intelligent Conversational IVR is part of it.",
   },
   {
-    q: "Will the AI Voice Agent make things up?",
+    q: "Will the voice agent make things up?",
     a: "It is designed to answer from the documents you provide and to stop guessing when it cannot find an answer. In that case, or when the caller asks for a person, it collects their details and sends your team a callback request with the conversation. You also set the topics it may discuss, and it keeps personal data such as phone and card numbers out of its spoken replies.",
   },
   {
-    q: "What is the Ingestion Dashboard?",
-    a: "It is the operator console for the SeerHive resume ingestion pipeline, which collects resumes from email mailboxes and OneDrive, removes duplicates, checks and classifies them, and stores them. The dashboard shows whether resumes are flowing, where any single file ended up, and what to do when something fails, in plain language. It does not process resumes itself and does not edit candidate records.",
+    q: "What are the Resume Data Pipeline and the SeerHive Data Ingestion Pipeline?",
+    a: "The Resume Data Pipeline collects resumes from any email account, job portal or external source, uses AI to extract and organize candidate details, merges duplicates and loads them straight into your HRMS. The SeerHive AI Data Ingestion Pipeline applies the same idea to any document: it is proven in recruitment and configurable for invoicing and finance, healthcare, and leads and sales.",
   },
   {
     q: "What products does SeerHive offer?",
-    a: "SeerHive offers an HRMS, a set of AI modules, IVR Outbound, the AI Voice Agent and the Ingestion Dashboard. Each product has its own page with a list of features.",
+    a: "SeerVoiz AI, SeerHive Recruit AI, SeerHive Data Ingestion Pipeline, SeerHive HRMS + ATS and SeerHive Invoicing. We also offer AI solutions, custom software development and staffing and talent solutions. Each product has its own page with a list of features.",
   },
   {
     q: "Can I see it live?",
-    a: "Yes. Contact the team to arrange a walkthrough using your own resumes and job descriptions, either online or on-site.",
+    a: "Yes. Book a demo to arrange a walkthrough using your own resumes and job descriptions, either online or on-site.",
   },
   {
     q: "How much does it cost?",
-    a: "Pricing depends on which products you use and how many people use them. Contact the team and we will send you a quote.",
+    a: "Pricing depends on which products you use and how many people use them. Get in touch and we will send you a quote.",
   },
   {
     q: "Can I move my existing data into SeerHive?",
@@ -49,6 +49,17 @@ const faqs = [
   },
 ];
 
+// The home page shows only these questions, in this order. Every other entry stays in `faqs` for a future FAQ page.
+const HOME_FAQ = [
+  "What products does SeerHive offer?",
+  "How do SeerHive Recruit AI, SeerVoiz AI, SeerHive Invoicing and the HRMS fit together?",
+  "Can I use the AI products without the HRMS?",
+  "Will the voice agent make things up?",
+  "Can I move my existing data into SeerHive?",
+  "Can I see it live?",
+];
+const homeFaqs = HOME_FAQ.map((q) => faqs.find((f) => f.q === q)!);
+
 export default function Faq() {
   return (
     <section id="faq" className="relative py-24 lg:py-32 border-t border-border/60">
@@ -59,7 +70,7 @@ export default function Faq() {
         </h2>
 
         <div data-reveal-stagger="70" className="mt-10 divide-y divide-border/70 border-t border-border/70">
-          {faqs.map((f) => (
+          {homeFaqs.map((f) => (
             <details data-reveal key={f.q} className="group py-5">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-6 text-paper font-medium text-[16px]">
                 {f.q}

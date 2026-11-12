@@ -183,7 +183,7 @@ export default function HiveLoader() {
         <span className="hive-loader__title">
           Seer<b>Hive</b>
         </span>
-        <span className="hive-loader__sub">One hive. Every hire.</span>
+        <span className="hive-loader__sub">Intelligent Solutions, Infinite Possibilities</span>
       </div>
 
       <div className="hive-loader__bar">

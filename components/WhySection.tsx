@@ -2,7 +2,7 @@ const points = [
   {
     title: "Use one or all",
     detail:
-      "Every module works on its own. Start with the task that slows your team down the most, and connect the others through SeerHive when you are ready.",
+      "Every product works on its own. Start with the task that slows your team down the most, and connect the others through SeerHive when you are ready.",
     icon: (
       <>
         <path d="M12 3l7 4v8l-7 4-7-4V7z" />
@@ -23,9 +23,9 @@ const points = [
     ),
   },
   {
-    title: "Nothing invented",
+    title: "Grounded in your data",
     detail:
-      "Enhanced resumes and generated descriptions stay true to what you give them. Nothing is added that is not already there.",
+      "Enhanced resumes, generated descriptions and voice answers stay true to your data and documents. Nothing is added that isn't already there.",
     icon: (
       <>
         <path d="M12 3l8 3v6c0 4.5-3.2 7.8-8 9-4.8-1.2-8-4.5-8-9V6z" />
@@ -44,11 +44,11 @@ export default function WhySection() {
         <div className="mx-auto max-w-2xl text-center" data-reveal-stagger="80">
           <span data-reveal className="label-mono text-[12px] text-aqua">Why SeerHive</span>
           <h2 data-reveal className="mt-4 font-display text-3xl sm:text-5xl font-semibold tracking-tight text-paper">
-            Simple tools that fit the way you{" "}
-            <span className="brand-gradient-x bg-clip-text text-transparent">hire</span>.
+            AI products that fit the way your{" "}
+            <span className="brand-gradient-x bg-clip-text text-transparent">business works</span>.
           </h2>
           <p data-reveal className="mt-5 text-mist leading-relaxed">
-            Start with one module, or use them all together. You stay in control of the result.
+            Start with one product, or use them all together. You stay in control of the result.
           </p>
         </div>
 
@@ -85,13 +85,13 @@ export default function WhySection() {
           <div className="absolute inset-0 bg-hex-grid opacity-20" />
           <div className="relative">
             <p className="font-display text-xl font-semibold text-white sm:text-2xl">Not sure where to start?</p>
-            <p className="mt-1.5 text-[16px] text-white/85">Have a question about a module? We read every message.</p>
+            <p className="mt-1.5 text-[16px] text-white/85">Have a question about a product? We read every message.</p>
           </div>
           <a
             href="/contact"
             className="relative mt-6 inline-flex rounded-full bg-white px-7 py-3 text-[16px] font-semibold text-[#0078C8] shadow-lg transition-transform hover:scale-105 sm:mt-0"
           >
-            Talk to the team →
+            Book a demo →
           </a>
         </div>
       </div>

@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { projects } from "@/lib/projects";
+import { projects, productOf } from "@/lib/projects";
 import ModuleIcon from "./ModuleIcon";
+import OpenAppLink from "./OpenAppLink";
+import { getLiveUrl } from "@/lib/links";
 import ProjectVisual from "./ProjectVisual";
 
 export default function ProjectSpotlight() {
@@ -65,21 +67,18 @@ export default function ProjectSpotlight() {
     <section
       id="agents"
       ref={sectionRef}
-      className="relative py-24 lg:py-32 border-t border-border/60"
+      className="relative overflow-x-clip py-24 lg:py-32 border-t border-border/60"
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="max-w-2xl">
           <span className="label-mono text-[12px] text-aqua">The platform</span>
           <h2 className="mt-4 font-display text-3xl sm:text-4xl font-semibold tracking-tight text-paper">
-            Each product does one job.
+            AI products. One platform.
           </h2>
           <p className="mt-4 text-mist leading-relaxed">
-            Resume screening, job descriptions, interview questions, resume
-            templates, resume enhancement, reminder calls and spoken answers
-            for callers each have their own tool. The HRMS tracks the candidates, clients and billing
-            around them. All of it is part of{" "}
-            <span className="text-paper font-medium">SeerHive</span>.
-            Hover over or tap a product to see its screen.
+            SeerVoiz AI for voice, SeerHive Recruit AI for hiring, SeerHive Invoicing, the SeerHive Data
+            Ingestion Pipeline, and the SeerHive HRMS + ATS that tracks the candidates, employees
+            and billing around them. Hover over or tap one to see its screen.
           </p>
         </div>
 
@@ -87,8 +86,20 @@ export default function ProjectSpotlight() {
           {/* Project list */}
           <div className="divide-y divide-border/70 border-y border-border/70">
             {projects.map((p, i) => (
+              <div key={p.id}>
+              {(i === 0 || productOf(projects[i - 1])?.id !== productOf(p)?.id) && (
+                <div className="bg-surface/40 px-5 py-3">
+                  {(productOf(p)?.children.length ?? 0) === 1 ? (
+                    <a href={productOf(p)!.href} className="label-mono inline-flex items-center gap-1 text-[12px] font-semibold text-azure-soft transition-colors hover:text-aqua">
+                      {productOf(p)?.name} <span aria-hidden="true">↗</span>
+                    </a>
+                  ) : (
+                    <p className="label-mono text-[12px] font-semibold text-azure-soft">{productOf(p)?.name}</p>
+                  )}
+                  <p className="text-[14px] text-mist">{productOf(p)?.tag}</p>
+                </div>
+              )}
               <div
-                key={p.id}
                 ref={(el) => {
                   rowRefs.current[i] = el;
                 }}
@@ -127,9 +138,11 @@ export default function ProjectSpotlight() {
                           </span>
                         )}
                       </div>
-                      <p className="mt-1.5 text-[14px] text-aqua-soft/90 font-medium">
-                        {p.tagline}
-                      </p>
+                      {(productOf(p)?.children.length ?? 0) > 1 && (
+                        <p className="mt-1.5 text-[14px] text-aqua-soft/90 font-medium">
+                          {p.tagline}
+                        </p>
+                      )}
                       <p
                         className={`mt-2 text-[16px] leading-relaxed text-mist transition-all overflow-hidden ${
                           active === i ? "max-h-24 opacity-100" : "max-h-0 opacity-0 lg:max-h-24 lg:opacity-100"
@@ -137,22 +150,35 @@ export default function ProjectSpotlight() {
                       >
                         {p.description}
                       </p>
-                      <a
-                        href={p.href}
-                        onClick={(e) => e.stopPropagation()}
-                        className="mt-3 inline-flex items-center gap-1 text-[14px] font-medium text-azure-soft hover:text-aqua transition-colors"
-                      >
-                        View details ↗
-                      </a>
+                      <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2">
+                        <a
+                          href={p.href}
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center gap-1 text-[14px] font-medium text-azure-soft hover:text-aqua transition-colors"
+                        >
+                          View details ↗
+                        </a>
+                        {getLiveUrl(p.slug) && (
+                          <span onClick={(e) => e.stopPropagation()}>
+                            <OpenAppLink
+                              href={getLiveUrl(p.slug)!}
+                              className="inline-flex items-center gap-1 rounded-full border border-border px-3.5 py-1 text-[14px] font-semibold text-paper transition-colors hover:border-aqua/50 hover:text-aqua"
+                            >
+                              Open the app ↗
+                            </OpenAppLink>
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
                 {/* Inline preview only shows on mobile/tablet: the real screen, full width, right where you're reading */}
                 {active === i && (
                   <div className="mt-5 lg:hidden shot-swap">
-                    <ProjectVisual project={p} />
+                    <ProjectVisual project={p} showTitle={false} />
                   </div>
                 )}
+              </div>
               </div>
             ))}
           </div>
@@ -176,21 +202,6 @@ export default function ProjectSpotlight() {
                 </a>
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Dynamic feature grid — always reflects whichever project is active */}
-        <div key={`${activeProject.id}-features`} className="mt-20 animate-fadeIn">
-          <p className="label-mono text-[12px] text-azure-soft">
-            What {activeProject.name} covers
-          </p>
-          <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-6 border-t border-border/70 pt-6">
-            {activeProject.evaluates.map((e) => (
-              <div key={e.title}>
-                <p className="font-display text-[16px] font-semibold text-paper">{e.title}</p>
-                <p className="mt-1.5 text-[16px] leading-relaxed text-mist">{e.detail}</p>
-              </div>
-            ))}
           </div>
         </div>
       </div>

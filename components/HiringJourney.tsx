@@ -8,12 +8,11 @@ type Stop = { slug: string; step: string; name: string; text: string };
 // One role, followed through the products. Every link below is a feature the
 // product pages already describe; nothing here is a separate promise.
 const stops: Stop[] = [
-  { slug: "jd-preparation", step: "Write the role", name: "JD Generator", text: "Rough notes become a structured job description with a summary, responsibilities, skills and qualifications. Edit any line, then download it." },
-  { slug: "resume-analyser", step: "Screen the resumes", name: "Resume Analyser", text: "Every resume is scored against that same description with the weights you set, and each ranking comes with the reasons for and against." },
-  { slug: "ivr-outbound", step: "Confirm the interview", name: "IVR Outbound", text: "Scheduled interviews come in from SeerHive ATS and each candidate gets a reminder call before their own slot, pressing 1 to confirm or 2 to reschedule." },
-  { slug: "interview-questions", step: "Prepare the panel", name: "Interview Questions", text: "Coding, theoretical and scenario questions with an expected answer for each, built from the job description or from the candidate's resume." },
-  { slug: "voice-ai-agent", step: "Answer candidates", name: "AI Voice Agent", text: "Candidates ask about the role, the process and the documents they need, and get answers from your own material. Anything it cannot answer becomes a callback request." },
-  { slug: "seer-hive", step: "Hire and manage", name: "SeerHive", text: "The candidate moves from offer to onboarding, then into timesheets, payroll and client invoicing, all on one record." },
+  { slug: "ingestion-dashboard", step: "Collect the resumes", name: "Resume Data Pipeline", text: "Resumes are gathered from email accounts and job portals, read by AI, de-duplicated and loaded straight into your HRMS." },
+  { slug: "resume-analyzer", step: "Screen the resumes", name: "AI Resume Analyzer", text: "Every resume is scored against the job description with the weights you set, and each ranking comes with the reasons for and against." },
+  { slug: "ivr-outbound", step: "Confirm the interview", name: "Intelligent Conversational IVR", text: "Scheduled interviews come in from SeerHive HRMS + ATS and each candidate gets a reminder call before their own slot, pressing 1 to confirm or 2 to reschedule." },
+  { slug: "voice-ai-agent", step: "Answer candidates", name: "SeerVoiz AI Voice Agents", text: "Candidates ask about the role, the process and the documents they need, and get answers from your knowledge base. Anything it cannot answer becomes a callback request." },
+  { slug: "seer-hive", step: "Hire and manage", name: "SeerHive HRMS + ATS", text: "The candidate moves from offer to onboarding, then into timesheets, payroll and client invoicing, all on one record." },
 ];
 
 const W = 600;
@@ -32,11 +31,11 @@ export default function HiringJourney() {
         <div className="max-w-2xl" data-reveal-stagger="80">
           <span data-reveal className="label-mono text-[12px] text-aqua">One role, start to finish</span>
           <h2 data-reveal className="mt-4 font-display text-3xl font-semibold tracking-tight text-paper sm:text-4xl">
-            One job description. One shortlist. <span className="brand-gradient-x bg-clip-text text-transparent">One hire</span>.
+            One vacancy. One shortlist. <span className="brand-gradient-x bg-clip-text text-transparent">One hire</span>.
           </h2>
           <p data-reveal className="mt-4 leading-relaxed text-mist">
             Most tools start at the resume, but the work starts earlier and ends later. Follow a single vacancy through the
-            products, from the first line of the description to the first invoice.
+            products, from the first resume to the first invoice.
           </p>
         </div>
 
@@ -118,9 +117,8 @@ export default function HiringJourney() {
 
         <p data-reveal className="mt-10 max-w-3xl text-[16px] leading-relaxed text-mist">
           <span className="font-medium text-paper">And for the candidate:</span>{" "}
-          <a href="/projects/resume-templates" className="font-medium text-azure-soft hover:text-aqua">Resume Template Builder</a> shapes a resume to
-          the role and level, and <a href="/projects/resume-enhancer" className="font-medium text-azure-soft hover:text-aqua">Resume Enhancer</a>{" "}
-          tailors an existing one to the job description, showing the match score before and after.
+          <a href="/projects/resume-enhancer" className="font-medium text-azure-soft hover:text-aqua">AI Resume Enhancer</a>{" "}
+          tailors an existing resume to the job description, showing the match score before and after.
         </p>
       </div>
     </section>

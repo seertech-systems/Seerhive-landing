@@ -3,7 +3,7 @@ import OpenAppLink from "@/components/OpenAppLink";
 import { getLiveUrl } from "@/lib/links";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { projects, getProject } from "@/lib/projects";
+import { projects, getProject, relatedSlugs } from "@/lib/projects";
 import ModuleIcon from "@/components/ModuleIcon";
 import ProjectVisual from "@/components/ProjectVisual";
 import SeerHiveFeatures from "@/components/SeerHiveFeatures";
@@ -40,7 +40,9 @@ export default function ProjectDetail({ params }: { params: { slug: string } }) 
   const project = getProject(params.slug);
   if (!project) notFound();
 
-  const related = projects.filter((p) => p.id !== project.id).slice(0, 3);
+  const related = (relatedSlugs[project.slug] ?? [])
+    .map((s) => getProject(s))
+    .filter((p): p is NonNullable<typeof p> => Boolean(p));
   const accentText = project.accent === "aqua" ? "text-aqua" : "text-azure-soft";
   const accentBg = project.accent === "aqua" ? "bg-aqua text-ink hover:bg-aqua-soft" : "bg-azure text-white hover:bg-azure-soft hover:text-ink";
 
@@ -73,14 +75,14 @@ export default function ProjectDetail({ params }: { params: { slug: string } }) 
                   href={getLiveUrl(project.slug)!}
                   className={`rounded-full px-6 py-3.5 text-[16px] font-semibold transition-colors ${accentBg}`}
                 >
-                  Open {project.name} ↗
+                  Open the app ↗
                 </OpenAppLink>
               )}
               <a
                 href="/contact"
                 className="btn-wave btn-wave--outline rounded-full border border-border px-6 py-3.5 text-[16px] font-semibold text-paper transition-colors"
               >
-                Talk to SeerHive
+                Book a demo
               </a>
               <a
                 href="/#agents"
@@ -253,7 +255,7 @@ export default function ProjectDetail({ params }: { params: { slug: string } }) 
             href="/contact"
             className="btn-wave mt-8 inline-flex rounded-full bg-aqua px-7 py-3.5 text-[16px] font-semibold text-ink transition-colors"
           >
-            Talk to us
+            Book a demo →
           </a>
         </div>
       </section>

@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { AuthMode, AuthModalState, AuthUser } from "./types";
-import { checkSession, loginUser, logoutUser, signupUser } from "./authThunks";
+import { changePassword, checkSession, loginUser, logoutUser, signupUser } from "./authThunks";
 
 export type AuthState = {
   user: AuthUser | null;
@@ -59,6 +59,12 @@ const authSlice = createSlice({
       .addCase(signupUser.fulfilled, signedIn)
       .addCase(loginUser.rejected, failedForm)
       .addCase(signupUser.rejected, failedForm)
+      .addCase(changePassword.pending, pendingForm)
+      .addCase(changePassword.rejected, failedForm)
+      .addCase(changePassword.fulfilled, (state) => {
+        state.status = "idle";
+        state.modal = { open: false, mode: "login", redirectTo: null };
+      })
       .addCase(logoutUser.fulfilled, (state) => {
         state.user = null;
       });

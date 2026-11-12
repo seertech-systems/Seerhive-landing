@@ -35,14 +35,14 @@ const scenarios: Scenario[] = [
       { kind: "agent", text: "Thank you for calling Sunrise Clinic. How can I help you today?" },
       { kind: "caller", text: "What are your OPD timings on Saturday?" },
       { kind: "search", source: "opd-timings.pdf" },
-      { kind: "agent", text: "On Saturdays the OPD is open from 9 in the morning to 1 in the afternoon." },
+      { kind: "agent", text: "On Saturdays the OPD is open from 9 AM to 1 PM." },
       { kind: "caller", text: "That's all I needed. Thanks." },
       { kind: "agent", text: "You're welcome. Have a good day." },
     ],
   },
   {
     id: "handoff",
-    tab: "Hands off to your team",
+    tab: "Passes to your team",
     blurb: "When the agent cannot answer, or the caller wants a person, it stops guessing and passes the request on.",
     direction: "Inbound",
     sources: ["opd-timings.pdf", "doctor-schedule.pdf", "visiting-rules.txt"],
@@ -71,7 +71,7 @@ const scenarios: Scenario[] = [
       { kind: "agent", text: "Hello, this is Sunrise Clinic. We're inviting you to our free health camp this Sunday." },
       { kind: "caller", text: "Where is it being held?" },
       { kind: "search", source: "venue-and-timings.pdf" },
-      { kind: "agent", text: "It is at the clinic's main hall, from 10 in the morning to 2 in the afternoon." },
+      { kind: "agent", text: "It is at the clinic's main hall, from 10 AM to 2 PM." },
       { kind: "caller", text: "Okay, I'll try to come." },
       { kind: "agent", text: "Wonderful. Thank you, and have a good day." },
     ],
@@ -259,7 +259,7 @@ export default function VoiceCallDemo() {
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-5 py-3">
             <div className="flex items-center gap-3">
               <span className="hex h-4 w-4 bg-[#0078C8]" />
-              <span className="label-mono text-[12px] text-mist">AI Voice Agent · {sc.direction} call</span>
+              <span className="label-mono text-[12px] text-mist">SeerVoiz AI · {sc.direction} call</span>
             </div>
             <div className="flex items-center gap-3">
               <span className="label-mono rounded-full border border-border px-2.5 py-1 text-[12px] text-mist">Sample data</span>

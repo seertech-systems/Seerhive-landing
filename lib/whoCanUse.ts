@@ -19,11 +19,11 @@ export const whoCanUse: Record<string, { heading: string; intro: string; audienc
     intro: "Anyone who makes the same kind of call again and again.",
     audiences: [
       { icon: "team", title: "Operations heads", detail: "Take repetitive confirmation and reminder calls off your teams." },
-      { icon: "phone", title: "Call-centre managers", detail: "Run high-volume reminder campaigns with retries and live monitoring." },
-      { icon: "search", title: "HR and recruitment teams", detail: "Confirm interview attendance before the slot is wasted, with interviews pulled from SeerHive ATS." },
+      { icon: "phone", title: "Call center managers", detail: "Run high-volume reminder campaigns with retries and live monitoring." },
+      { icon: "search", title: "HR and recruitment teams", detail: "Confirm interview attendance before the slot is wasted, with interviews pulled from SeerHive HRMS + ATS." },
       { icon: "manager", title: "Hospitals and clinics", detail: "Confirm appointments a set time before the visit and reduce no-shows." },
       { icon: "finance", title: "BFSI service leads", detail: "Send due-date and document reminders with a confirmation step." },
-      { icon: "doc", title: "Education, retail and support", detail: "Send fee and counselling reminders, or confirm orders, deliveries and pickups." },
+      { icon: "doc", title: "Education, retail and support", detail: "Send fee and counseling reminders, or confirm orders, deliveries and pickups." },
     ],
   },
   "voice-ai-agent": {
@@ -31,11 +31,11 @@ export const whoCanUse: Record<string, { heading: string; intro: string; audienc
     intro: "Anyone whose callers ask what a well-informed agent could answer, and whose team should spend its time on the calls that need a person.",
     audiences: [
       { icon: "team", title: "Operations heads", detail: "Handle routine calls consistently without adding headcount." },
-      { icon: "phone", title: "Call-centre managers", detail: "Cut queue load and focus your people on complex calls." },
+      { icon: "phone", title: "Call center managers", detail: "Cut queue load and focus your people on complex calls." },
       { icon: "search", title: "HR and recruitment heads", detail: "Run hiring-drive calls and an employee helpline that verifies the employee number first." },
       { icon: "manager", title: "Hospital and clinic administrators", detail: "Answer OPD timings and doctor schedules, and take appointment requests for the front desk." },
       { icon: "finance", title: "BFSI service leads", detail: "Answer product, eligibility, document and branch questions at scale." },
-      { icon: "doc", title: "Admissions and retail teams", detail: "Handle course, fee and deadline enquiries, or store timings, delivery and returns." },
+      { icon: "doc", title: "Admissions and retail teams", detail: "Handle course, fee and deadline inquiries, or store timings, delivery and returns." },
     ],
   },
   "ingestion-dashboard": {
@@ -44,10 +44,29 @@ export const whoCanUse: Record<string, { heading: string; intro: string; audienc
     audiences: [
       { icon: "search", title: "Recruitment operations", detail: "Confirm a candidate's resume arrived, see why one did not, and keep mailboxes and drives scanning." },
       { icon: "clock", title: "Pipeline operators", detail: "Spot stalls, retry backlogs and failure spikes quickly, then act." },
-      { icon: "phone", title: "Support and helpdesk", detail: "Answer \"where is this resume?\" in seconds with a shareable link." },
-      { icon: "doc", title: "Engineering and QA", detail: "Debug a single job with its timeline, stage and technical detail." },
+      { icon: "phone", title: "Support and helpdesk", detail: "Answer \"where is this resume?\" in seconds." },
       { icon: "manager", title: "Team leads and managers", detail: "Check throughput and health without asking for a report." },
       { icon: "finance", title: "Data and compliance owners", detail: "See who resolved which failure, and trace duplicates to their originals." },
+    ],
+  },
+  invoicing: {
+    heading: "Made for teams that bill clients and pay vendors",
+    intro: "Anyone who raises client invoices or handles the invoices that come in.",
+    audiences: [
+      { icon: "finance", title: "Finance and accounts teams", detail: "Generate client invoices and process vendor invoices without manual data entry." },
+      { icon: "agency", title: "Staffing agencies", detail: "Bill each client on its own cycle and rates, straight from your placements." },
+      { icon: "manager", title: "Approvers and managers", detail: "Review and approve invoices routed to you, with duplicates and gaps already flagged." },
+      { icon: "person", title: "Business owners", detail: "See what is billed, pending, approved and overdue in real time." },
+    ],
+  },
+  "data-ingestion": {
+    heading: "Made for teams buried in incoming documents",
+    intro: "Anyone who receives documents by email, portal or upload and has to get the data into a system.",
+    audiences: [
+      { icon: "search", title: "Recruitment teams", detail: "Resumes from every mailbox and portal, loaded into your HRMS automatically." },
+      { icon: "finance", title: "Finance and accounts payable", detail: "Vendor invoices and purchase orders captured without retyping." },
+      { icon: "manager", title: "Healthcare administration", detail: "Medical records, lab reports and referrals turned into structured data." },
+      { icon: "phone", title: "Sales operations", detail: "Inquiries and forms captured as leads in your CRM." },
     ],
   },
   "seer-hive": {
@@ -56,13 +75,13 @@ export const whoCanUse: Record<string, { heading: string; intro: string; audienc
     audiences: [
       { icon: "agency", title: "Staffing and recruitment agencies", detail: "Hire for several clients, track contract and permanent placements, and invoice each client." },
       { icon: "team", title: "Company HR teams", detail: "Hire for your own company, issue offers, onboard people and run payroll." },
-      { icon: "finance", title: "Finance teams", detail: "Raise invoices with GST worked out and follow payments." },
-      { icon: "manager", title: "Managers", detail: "Approve timesheets and see hours, utilisation and leave for your team." },
+      { icon: "finance", title: "Finance teams", detail: "Raise GST-ready invoices and track payments." },
+      { icon: "manager", title: "Managers", detail: "Approve timesheets and see hours, utilization and leave for your team." },
       { icon: "clock", title: "Employees", detail: "Log time, apply for leave, and check your own attendance and payslips." },
       { icon: "search", title: "Recruiters", detail: "Keep candidates, interviews and offers in one pipeline." },
     ],
   },
-  "resume-analyser": {
+  "resume-analyzer": {
     heading: "Made for teams that screen resumes",
     intro: "Anyone who has to choose between many resumes for one job.",
     audiences: [
@@ -70,36 +89,6 @@ export const whoCanUse: Record<string, { heading: string; intro: string; audienc
       { icon: "manager", title: "Hiring managers", detail: "See why a candidate scored as they did, and set what matters for your role." },
       { icon: "agency", title: "Staffing agencies", detail: "Screen candidates for each client with weights that match that client's needs." },
       { icon: "team", title: "HR teams", detail: "Apply the same transparent scoring to every applicant." },
-    ],
-  },
-  "resume-templates": {
-    heading: "Made for anyone building a resume",
-    intro: "Anyone who needs a clean, professional resume format to start from.",
-    audiences: [
-      { icon: "person", title: "Freshers and job seekers", detail: "Start from a template that suits your experience level and the role you want." },
-      { icon: "search", title: "Recruiters", detail: "Give candidates a template shaped around the job description." },
-      { icon: "team", title: "HR and training teams", detail: "Share one consistent resume format with a whole group." },
-      { icon: "doc", title: "Career coaches", detail: "Create a starting layout for each person you advise, in single or two columns." },
-    ],
-  },
-  "interview-questions": {
-    heading: "Made for everyone who interviews",
-    intro: "Anyone who interviews and wants good questions without hours of preparation.",
-    audiences: [
-      { icon: "manager", title: "Interviewers and hiring managers", detail: "Get questions that test what the job actually needs." },
-      { icon: "search", title: "Recruiters", detail: "Prepare screening questions for a role or for one specific candidate." },
-      { icon: "team", title: "HR teams", detail: "Keep interviews consistent across candidates and interviewers." },
-      { icon: "doc", title: "Technical leads", detail: "Choose the mix of coding, theory and scenario questions for a round." },
-    ],
-  },
-  "jd-preparation": {
-    heading: "Made for anyone who writes job descriptions",
-    intro: "Anyone who needs a clear job description and does not want to write it from scratch.",
-    audiences: [
-      { icon: "team", title: "HR teams", detail: "Turn a hiring manager's notes into a structured job description." },
-      { icon: "search", title: "Recruiters", detail: "Draft a description for a new client role in minutes." },
-      { icon: "manager", title: "Hiring managers", detail: "Describe the role in your own words and get a finished description." },
-      { icon: "agency", title: "Small companies and startups", detail: "Post a professional job description without a dedicated HR team." },
     ],
   },
 };

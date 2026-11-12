@@ -1,10 +1,12 @@
 const rows = [
-  { feature: "Resume scoring, job descriptions and interview questions", seerhive: "Built in", separate: "Different tools", sheets: "Manual" },
+  { feature: "Calls and reminders automated", seerhive: "Built in", separate: "Separate dialer", sheets: "Dialed by hand" },
+  { feature: "Invoices and documents captured automatically", seerhive: "Built in", separate: "Different tools", sheets: "Typed in by hand" },
+  { feature: "Resume enhancing, scoring and data collection", seerhive: "Built in", separate: "Different tools", sheets: "Manual" },
   { feature: "One candidate record from selection to payroll", seerhive: "Yes", separate: "Copied between tools", sheets: "Copied by hand" },
   { feature: "Offer letters made from the record", seerhive: "Yes", separate: "Sometimes", sheets: "Written by hand", separatePartial: true },
   { feature: "Timesheets approved before payroll and invoices", seerhive: "Yes", separate: "Separate system", sheets: "Manual checks" },
-  { feature: "Contract and permanent placements tracked apart", seerhive: "Yes", separate: "Varies", sheets: "Extra sheets", separatePartial: true },
-  { feature: "Start with one tool and add more later", seerhive: "Yes", separate: "Yes", sheets: "Not applicable", separateOk: true },
+  { feature: "Contract and permanent placements tracked separately", seerhive: "Yes", separate: "Varies", sheets: "Extra sheets", separatePartial: true },
+  { feature: "Start with one product and add more later", seerhive: "Yes", separate: "Yes", sheets: "Not applicable", separateOk: true },
 ];
 
 function Check() {
@@ -45,7 +47,7 @@ export default function ComparisonTable() {
             SeerHive next to the usual ways of working
           </h2>
           <p data-reveal className="mt-4 text-mist">
-            Most teams use several separate tools or a set of spreadsheets. This is how that compares.
+            Most teams juggle separate tools, spreadsheets and manual calls. This is how SeerHive compares.
           </p>
         </div>
 

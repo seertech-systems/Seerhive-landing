@@ -64,9 +64,9 @@ export default function MockPanel({
     : { title: "text-[16px]", sub: "text-[12px]", pill: "text-[12px] px-2 py-1" };
 
   switch (variant) {
-    case "resume-analyser":
+    case "resume-analyzer":
       return (
-        <Chrome label="seerhive / resume-analyser" compact={compact}>
+        <Chrome label="seerhive / resume-analyzer" compact={compact}>
           {[
             { name: "P. Iyer", role: "Sr Backend Eng.", score: 94 },
             { name: "A. Khan", role: "Sr Backend Eng.", score: 88 },
@@ -80,73 +80,6 @@ export default function MockPanel({
               <span className="font-display text-chromeAqua text-sm">{c.score}%</span>
             </Row>
           ))}
-        </Chrome>
-      );
-
-    case "jd-preparation":
-      return (
-        <Chrome label="seerhive / jd-preparation" compact={compact}>
-          <Row compact={compact}>
-            <p className={`${t.title} text-chromeText`}>Senior Backend Engineer</p>
-            <span className={`label-mono ${t.pill} rounded-full border border-chromeBorder text-chromeMist`}>
-              Draft
-            </span>
-          </Row>
-          {!compact && (
-            <div className="rounded-xl border border-dashed border-chromeBorder/80 px-4 py-3 space-y-1.5">
-              <p className="text-[12px] text-chromeMist">Must-have</p>
-              <p className="text-[14px] text-chromeText">Go · Distributed systems · 5+ yrs</p>
-            </div>
-          )}
-          <Row compact={compact}>
-            <span className={`${t.sub} text-chromeMist`}>Bias check</span>
-            <span className="text-chromeAqua text-[12px]">18/18 clear</span>
-          </Row>
-        </Chrome>
-      );
-
-    case "interview-questions":
-      return (
-        <Chrome label="seerhive / interview-questions" compact={compact}>
-          {[
-            "Walk me through the sharding change you shipped.",
-            "How did you validate the migration was safe?",
-          ].map((q, i) => (
-            <Row key={i} compact={compact}>
-              <p className={`${t.sub} text-chromeText leading-snug`}>{q}</p>
-            </Row>
-          ))}
-          {!compact && (
-            <div className="rounded-xl border border-chromeBorder/70 bg-chrome/70 px-4 py-3">
-              <p className="text-[12px] text-chromeMist">Panel-ready kit</p>
-              <p className="text-[14px] text-chromeAqua mt-0.5">18 questions · 3 rounds</p>
-            </div>
-          )}
-        </Chrome>
-      );
-
-    case "resume-templates":
-      return (
-        <Chrome label="seerhive / resume-templates" compact={compact}>
-          <div className={`grid grid-cols-3 ${compact ? "gap-1.5" : "gap-3"}`}>
-            {["Technical", "Leadership", "Creative"].map((name) => (
-              <div
-                key={name}
-                className="rounded-lg border border-chromeBorder/70 bg-chrome/70 p-2 flex flex-col gap-1"
-              >
-                <div className="h-1 w-2/3 rounded-full bg-chromeAzureSoft/60" />
-                <div className="h-1 w-full rounded-full bg-chromeBorder" />
-                <div className="h-1 w-full rounded-full bg-chromeBorder" />
-                {!compact && <p className="mt-1 text-[12px] text-chromeMist">{name}</p>}
-              </div>
-            ))}
-          </div>
-          {!compact && (
-            <Row>
-              <span className="text-[12px] text-chromeMist">Export</span>
-              <span className="text-chromeAqua text-[12px]">PDF · DOCX</span>
-            </Row>
-          )}
         </Chrome>
       );
 
@@ -237,8 +170,8 @@ export default function MockPanel({
         <Chrome label="seerhive / ingestion" compact={compact}>
           <div className={`grid grid-cols-3 ${compact ? "gap-1.5" : "gap-3"}`}>
             {[
-              ["Completed", "348"],
-              ["Duplicates", "600"],
+              ["Completed", "1,248"],
+              ["Duplicates", "86"],
               ["Failed", "12"],
             ].map(([k, v]) => (
               <div key={k} className="rounded-lg border border-chromeBorder/70 bg-chrome/70 p-2">
@@ -261,6 +194,25 @@ export default function MockPanel({
               <p className="text-center text-[12px] text-chromeMist">Sample data</p>
             </>
           )}
+        </Chrome>
+      );
+
+    case "invoicing":
+      return (
+        <Chrome label="seerhive / invoicing" compact={compact}>
+          {[
+            { v: "Acme Supplies", s: "Pending approval" },
+            { v: "Northwind Ltd", s: "Approved" },
+            { v: "Globex Corp", s: "Duplicate flagged" },
+          ].map((row) => (
+            <Row key={row.v} compact={compact}>
+              <p className={`${t.title} font-medium text-chromeText`}>{row.v}</p>
+              <span className={`label-mono ${t.pill} text-chromeMist border border-chromeBorder rounded-full`}>
+                {row.s}
+              </span>
+            </Row>
+          ))}
+          {!compact && <p className="text-center text-[12px] text-chromeMist">Sample data</p>}
         </Chrome>
       );
 

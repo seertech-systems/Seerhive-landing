@@ -1,9 +1,17 @@
-import { agents } from "@/lib/projects";
+import { products } from "@/lib/projects";
 import { ModuleIconPaths } from "./ModuleIcon";
 import ParticleGlobe from "./ParticleGlobe";
 
-// Surrounding products feeding the SeerHive core, straight from lib/projects.
-const modules = agents.map((a) => ({ slug: a.slug, short: a.shortName }));
+// All five top-level products around the SeerHive core, with their full names (lib/projects).
+// Lines are broken by hand so every name fits inside its hexagon.
+const LINES: Record<string, string[]> = {
+  seervoiz: ["SeerVoiz AI"],
+  "recruit-ai": ["SeerHive", "Recruit AI"],
+  invoicing: ["SeerHive", "Invoicing"],
+  "data-ingestion": ["SeerHive", "Data Ingestion", "Pipeline"],
+  "seer-hive": ["SeerHive", "HRMS + ATS"],
+};
+const modules = products.map((p) => ({ slug: p.iconSlug, lines: LINES[p.id] ?? [p.name] }));
 
 const CX = 260;
 const CY = 250;
@@ -44,7 +52,7 @@ function Hex({
 
 export default function HiveDiagram() {
   return (
-    <div className="relative mx-auto w-full max-w-[520px] aspect-square lg:-mt-[142px]">
+    <div className="relative mx-auto w-full max-w-[520px] aspect-square lg:-mt-[40px]">
       {/* Turning sphere of dots, centred on the diagram so it sits behind the SeerHive core. */}
       <div
         className="pointer-events-none absolute left-1/2 top-1/2 h-[118%] w-[118%] opacity-80"
@@ -53,8 +61,8 @@ export default function HiveDiagram() {
         <ParticleGlobe />
       </div>
       <svg
-        viewBox="0 0 520 500"
-        className="relative w-full h-full mt-[-30px] drop-shadow-[0_0_60px_rgba(10,108,255,0.15)]"
+        viewBox="0 -34 520 540"
+        className="relative w-full h-full drop-shadow-[0_0_60px_rgba(10,108,255,0.15)]"
       >
         <defs>
           <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
@@ -95,15 +103,17 @@ export default function HiveDiagram() {
 
         {/* module nodes */}
         {nodes.map((n, i) => {
-          const words = n.short.split(" ");
+          const LH = 14;
+          const block = 18 + 4 + n.lines.length * LH;
+          const top = n.y - block / 2;
           return (
             <g key={i} className="hd-node" style={{ animationDelay: `${i * 0.5}s` }}>
-              <Hex x={n.x} y={n.y} size={58} fill="url(#nodeFill)" stroke="#22d3f5" />
+              <Hex x={n.x} y={n.y} size={64} fill="url(#nodeFill)" stroke="#22d3f5" />
               <svg
-                x={n.x - 10}
-                y={n.y - (words.length > 1 ? 34 : 22)}
-                width={20}
-                height={20}
+                x={n.x - 9}
+                y={top}
+                width={18}
+                height={18}
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#a0f4ff"
@@ -113,14 +123,14 @@ export default function HiveDiagram() {
               >
                 <ModuleIconPaths slug={n.slug} />
               </svg>
-              {words.map((w, wi) => (
+              {n.lines.map((w, wi) => (
                 <text
                   key={wi}
                   x={n.x}
-                  y={n.y + (words.length > 1 ? 6 + wi * 15 : 17)}
+                  y={top + 22 + wi * LH + 10}
                   textAnchor="middle"
                   fill="#ffffff"
-                  style={{ font: "600 13.5px var(--font-body), sans-serif" }}
+                  style={{ font: "600 12px var(--font-body), sans-serif" }}
                 >
                   {w}
                 </text>

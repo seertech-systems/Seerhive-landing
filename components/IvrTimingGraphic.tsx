@@ -96,7 +96,7 @@ export default function IvrTimingGraphic() {
           </h2>
           <p data-reveal className="mt-4 leading-relaxed text-mist">
             A reminder is only useful if it arrives at the right moment for that person. Choose how long before each
-            appointment the call should go, and every contact is dialled on their own clock, in the right time zone.
+            appointment the call should go, and every contact is dialed on their own clock, in the right time zone.
           </p>
         </div>
 
@@ -104,7 +104,7 @@ export default function IvrTimingGraphic() {
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-5 py-3">
             <div className="flex items-center gap-3">
               <span className="hex h-4 w-4 bg-[#0078C8]" />
-              <span className="label-mono text-[12px] text-mist">IVR Outbound · Campaign timing</span>
+              <span className="label-mono text-[12px] text-mist">Intelligent Conversational IVR · Campaign timing</span>
             </div>
             <span className="label-mono rounded-full border border-border px-2.5 py-1 text-[12px] text-mist">Sample data</span>
           </div>

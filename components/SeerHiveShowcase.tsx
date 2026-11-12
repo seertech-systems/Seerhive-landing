@@ -35,13 +35,13 @@ export default function SeerHiveShowcase() {
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center">
         <div data-reveal-stagger="90">
-          <span data-reveal className="label-mono text-[12px] text-azure-soft">SeerHive HRMS</span>
+          <span data-reveal className="label-mono text-[12px] text-azure-soft">SeerHive HRMS + ATS</span>
           <h2 data-reveal className="mt-4 font-display text-3xl sm:text-4xl font-semibold tracking-tight text-paper">
             One system for every hire,
             <br className="hidden sm:block" /> from selection to onboarding.
           </h2>
           <p data-reveal className="mt-5 text-mist leading-relaxed max-w-lg">
-            SeerHive is the HRMS behind the platform. It is made for companies
+            SeerHive HRMS + ATS is the HR system behind the platform. It is made for companies
             that hire for themselves and for staffing partners that place
             candidates with clients. Dashboards show where every hire stands.
           </p>
@@ -83,7 +83,7 @@ export default function SeerHiveShowcase() {
         {/* HRMS screen */}
         <div data-reveal="right" className={`relative rounded-3xl ${seerHive.screenshot ? "" : "border border-border bg-surface/70 p-3 shadow-[0_40px_100px_-40px_rgba(10,108,255,0.35)]"}`}>
           <div className={seerHive.screenshot ? "" : "aspect-[4/3]"}>
-            <ProjectVisual project={seerHive} />
+            <ProjectVisual project={seerHive} showTitle={false} />
           </div>
         </div>
       </div>

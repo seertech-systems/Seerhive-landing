@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import StoreProvider from "@/store/StoreProvider";
 import HiveLoader from "@/components/HiveLoader";
 import ScrollReveal from "@/components/ScrollReveal";
+import HashScroll from "@/components/HashScroll";
 import ScrollToTop from "@/components/ScrollToTop";
 import "./globals.css";
 
@@ -15,9 +16,9 @@ const body = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "SeerHive — A Hive of AI Modules",
+  title: "SeerHive — Intelligent Solutions, Infinite Possibilities",
   description:
-    "SeerHive is an HRMS for hiring, timesheets and invoicing, alongside AI modules for resume screening, job descriptions, interview questions, resume templates and resume enhancement, IVR Outbound for personalised reminder calls, an AI Voice Agent that answers and makes calls from your own knowledge, and an Ingestion Dashboard for the resume pipeline.",
+    "SeerHive brings SeerHive Recruit AI, SeerVoiz AI (voice intelligence powered by AI), SeerHive Invoicing, the SeerHive Data Ingestion Pipeline and the SeerHive HRMS + ATS together, with AI solutions, custom software development and staffing services.",
 };
 
 // Runs before paint so the correct theme class is set with no flash, and so
@@ -56,6 +57,7 @@ export default function RootLayout({
         <HiveLoader />
         <Navbar />
         <ScrollReveal />
+        <HashScroll />
         {children}
         <Footer />
         <ScrollToTop />

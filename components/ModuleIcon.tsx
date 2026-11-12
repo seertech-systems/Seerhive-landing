@@ -25,6 +25,21 @@ export function ModuleIconPaths({ slug }: { slug: string }) {
           <path d="M3 5h18l-7 8v6l-4 2v-8z" />
         </>
       );
+    case "data-ingestion":
+      return (
+        <>
+          <path d="M4 5h16M7 5v3M12 5v3M17 5v3" />
+          <path d="M5 8l7 6 7-6" />
+          <rect x="8" y="16" width="8" height="5" rx="1" />
+        </>
+      );
+    case "invoicing":
+      return (
+        <>
+          <path d="M6 3h12v18l-3-2-3 2-3-2-3 2z" />
+          <path d="M9 8h6M9 12h6M9 16h3" />
+        </>
+      );
     case "seer-hive":
       return (
         <>
@@ -32,33 +47,12 @@ export function ModuleIconPaths({ slug }: { slug: string }) {
           <path d="M12 8.5l3 1.7v3.6l-3 1.7-3-1.7v-3.6z" />
         </>
       );
-    case "resume-analyser":
+    case "resume-analyzer":
       return (
         <>
           <circle cx="11" cy="11" r="6.5" />
           <path d="M16 16l5 5" />
           <path d="M8.5 13v-2M11 13V9M13.5 13v-3" />
-        </>
-      );
-    case "resume-templates":
-      return (
-        <>
-          <rect x="3" y="4" width="18" height="16" rx="2" />
-          <path d="M3 9h18M9 9v11" />
-        </>
-      );
-    case "interview-questions":
-      return (
-        <>
-          <path d="M4 5h16v11H9l-5 4z" />
-          <path d="M10 9.5a2 2 0 114 0c0 1.5-2 1.6-2 3M12 14.5v.01" />
-        </>
-      );
-    case "jd-preparation":
-      return (
-        <>
-          <path d="M6 3h8l4 4v14H6z" />
-          <path d="M14 3v4h4M9 12h6M9 16h6" />
         </>
       );
     default:

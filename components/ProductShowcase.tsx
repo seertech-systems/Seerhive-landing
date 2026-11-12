@@ -1,9 +1,21 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { projects } from "@/lib/projects";
+import { products } from "@/lib/projects";
 
-const items = projects.filter((p) => p.screenshot);
+// The five products, by their full names, each with a real screen and its page.
+const SCREENS: Record<string, { screenshot: string; href: string }> = {
+  seervoiz: { screenshot: "/screens/ivr-outbound/main.png", href: "/projects/ivr-outbound" },
+  "recruit-ai": { screenshot: "/screens/resume-enhancer/2.png", href: "/projects/resume-enhancer" },
+  "data-ingestion": { screenshot: "/screens/ingestion-dashboard/overview.png", href: "/projects/data-ingestion" },
+  "seer-hive": { screenshot: "/screens/hrms/main.png", href: "/projects/seer-hive" },
+  invoicing: { screenshot: "/screens/hrms/invoicing.png", href: "/projects/invoicing" },
+};
+const ORDER = ["seervoiz", "recruit-ai", "data-ingestion", "seer-hive", "invoicing"];
+const items = ORDER.map((id) => {
+  const prod = products.find((x) => x.id === id)!;
+  return { id, name: prod.name, tagline: prod.tag, ...SCREENS[id] };
+});
 const N = items.length;
 
 /** Shortest signed distance from `active` to `i` on a loop of N items. */
