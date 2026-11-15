@@ -9,7 +9,7 @@ const SCREENS: Record<string, { screenshot: string; href: string }> = {
   "recruit-ai": { screenshot: "/screens/resume-enhancer/2.png", href: "/projects/resume-enhancer" },
   "data-ingestion": { screenshot: "/screens/ingestion-dashboard/overview.png", href: "/projects/data-ingestion" },
   "seer-hive": { screenshot: "/screens/hrms/main.png", href: "/projects/seer-hive" },
-  invoicing: { screenshot: "/screens/hrms/invoicing.png", href: "/projects/invoicing" },
+  invoicing: { screenshot: "/screens/invoicing/templates.png", href: "/projects/invoicing" },
 };
 const ORDER = ["seervoiz", "recruit-ai", "data-ingestion", "seer-hive", "invoicing"];
 const items = ORDER.map((id) => {

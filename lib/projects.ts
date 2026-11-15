@@ -256,7 +256,7 @@ export const projects: Project[] = [
       "Resumes arrive as email attachments and OneDrive files, from a few hundred a week to tens of thousands in a backfill. The SeerHive pipeline collects, de-duplicates, checks, classifies and stores them in the background. The Ingestion Dashboard is how people see and steer it: whether resumes are flowing, where any single file ended up, and what to do when something fails. No more chasing \"did that resume come through?\" messages.",
     mock: "ingestion-dashboard",
     screenshot: "/screens/ingestion-dashboard/overview.png",
-    screenshotRatio: 2.17,
+    screenshotRatio: 2.29,
     evaluates: [
       { title: "Any-source intake", detail: "Connects to any email account, job portal or external source." },
       { title: "AI extraction", detail: "Pulls skills, experience, education and contact details from PDF and Word resumes." },
@@ -295,6 +295,8 @@ export const projects: Project[] = [
     longDescription:
       "SeerHive Invoicing generates accurate client invoices with fully configurable templates, tax and rate rules and billing cycles, and uses AI to extract, validate, approve and track incoming vendor invoices, all from one platform.",
     mock: "invoicing",
+    screenshot: "/screens/invoicing/templates.png",
+    screenshotRatio: 2.31,
     evaluates: [
       { title: "Configurable billing", detail: "Templates, tax and rate rules and client-wise billing cycles, with no custom code." },
       { title: "AI invoice extraction", detail: "Pulls vendor details, line items, taxes and payment terms from incoming invoices." },

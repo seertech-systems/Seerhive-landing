@@ -13,6 +13,35 @@ export type ModuleScreen = {
  * Captured from the current build with sample data: an input screen, then the real output.
  */
 export const moduleScreens: Record<string, ModuleScreen[]> = {
+  "voice-ai-agent": [
+    {
+      id: "dashboard",
+      tab: "Dashboard",
+      title: "See what your voice agents handled",
+      text: "Pick today, 7, 30 or 90 days and see the number of calls, the talk time, the average call and the busiest day. A daily chart shows when calls came in, and a split shows how many the agent handled itself and how many it passed to a person.",
+      points: ["Calls, talk time, average call and busiest day", "Handled by the agent, passed to a person, or did not complete", "Calls per day chart", "How calls arrived, such as phone inbound"],
+      image: "/screens/voice-ai-agent/dashboard.png",
+      alt: "Voice AI dashboard with 11 calls in 30 days, a daily chart and how the calls were handled",
+    },
+    {
+      id: "agents",
+      tab: "Agent Studio",
+      title: "Create and manage your agents in one place",
+      text: "Every agent is a row with its status and the number of calls it took today. Filter by active, paused or draft, search by name, and create a new agent from the same screen.",
+      points: ["Active, paused and draft filters with counts", "Calls today for each agent", "Search agents by name", "Create or delete an agent"],
+      image: "/screens/voice-ai-agent/agent-studio.png",
+      alt: "Voice AI Agent Studio listing three active agents with their calls today",
+    },
+    {
+      id: "history",
+      tab: "Call history",
+      title: "Review every call the agents took",
+      text: "Each call is listed with the agent, the caller, the start time, how long it lasted and whether it was resolved. Search by caller, agent or call ID, or narrow the list to one agent.",
+      points: ["Agent, caller, start time and duration on every call", "Resolved status for each call", "Phone or other channel shown", "Search by caller, agent or call ID"],
+      image: "/screens/voice-ai-agent/call-history.png",
+      alt: "Voice AI call history with agent, caller, duration, status and channel",
+    },
+  ],
   "resume-enhancer": [
     {
       id: "input",
