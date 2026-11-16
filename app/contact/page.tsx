@@ -16,7 +16,7 @@ export default function ContactPage() {
         <HiveBackground />
         <div className="absolute -top-32 left-1/3 h-[380px] w-[380px] glow-aqua blur-3xl" />
 
-        <div data-reveal-stagger="90" className="copy-blur copy-blur--center relative mx-auto max-w-5xl px-6 lg:px-10 pt-16 pb-10 text-center">
+        <div data-reveal-stagger="90" className="copy-blur copy-blur--center relative mx-auto max-w-5xl px-5 sm:px-6 lg:px-10 pt-12 sm:pt-16 pb-10 text-center">
           <span data-reveal className="label-mono text-[12px] text-aqua">Get in touch</span>
           <h1 data-reveal className="mt-4 font-display text-4xl sm:text-5xl font-semibold tracking-tight text-paper">
             Book a demo
@@ -29,8 +29,8 @@ export default function ContactPage() {
       </section>
 
       <section className="relative pb-24 lg:pb-32">
-        <div className="mx-auto max-w-5xl px-6 lg:px-10 grid lg:grid-cols-[1fr_1.1fr] gap-12">
-          <div data-reveal-stagger="80" className="space-y-4">
+        <div className="mx-auto max-w-6xl px-5 sm:px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] gap-8 lg:gap-12">
+          <div data-reveal-stagger="80" className="min-w-0 space-y-4">
             <a
               data-reveal
               href={`mailto:${CONTACT.email}`}
@@ -76,7 +76,7 @@ export default function ContactPage() {
                   <circle cx="12" cy="10" r="2.5" />
                 </svg>
               </span>
-              <span>
+              <span className="min-w-0">
                 <span className="block label-mono text-[12px] text-mist">Head Office</span>
                 <span className="mt-1 block text-[16px] leading-relaxed text-paper">
                   {CONTACT.addressLines.map((l) => (
@@ -114,7 +114,7 @@ export default function ContactPage() {
                   <path d="M12 7v5l3 2" />
                 </svg>
               </span>
-              <span>
+              <span className="min-w-0">
                 <span className="block label-mono text-[12px] text-mist">Response time</span>
                 <span className="mt-1 block text-[16px] text-paper">Usually within one business day.</span>
               </span>
@@ -131,7 +131,7 @@ export default function ContactPage() {
                   <path d="M12 8.5l3 1.7v3.6l-3 1.7-3-1.7v-3.6z" />
                 </svg>
               </span>
-              <span>
+              <span className="min-w-0">
                 <span className="block label-mono text-[12px] text-mist">Still exploring?</span>
                 <span className="mt-1 block text-[16px] font-medium text-azure-soft transition-colors group-hover:text-aqua">
                   Browse all SeerHive products →
@@ -140,7 +140,7 @@ export default function ContactPage() {
             </a>
           </div>
 
-          <div data-reveal="right">
+          <div data-reveal="right" className="min-w-0">
             <ContactForm />
           </div>
         </div>

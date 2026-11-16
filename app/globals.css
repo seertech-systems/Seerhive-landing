@@ -773,3 +773,34 @@ html:not(.light) .site-footer {
   .max-w-6xl { max-width: 1560px; }
   .max-w-5xl { max-width: 1400px; }
 }
+
+/* Phone field (react-phone-number-input), themed to match the other form fields. */
+.seer-phone .PhoneInput {
+  --PhoneInputCountrySelect-marginRight: 0.6em;
+  --PhoneInputCountrySelectArrow-color: rgb(var(--paper) / 0.6);
+  --PhoneInputCountryFlag-borderColor--focus: rgb(var(--aqua));
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 1px solid rgb(var(--border));
+  border-radius: 0.75rem;
+  background: rgb(var(--ink));
+  padding: 0 1rem;
+  transition: box-shadow 0.15s;
+}
+.seer-phone .PhoneInput:focus-within {
+  border-color: rgb(var(--aqua));
+  box-shadow: 0 0 0 4px rgb(var(--aqua) / 0.15);
+}
+.seer-phone-invalid .PhoneInput { border-color: #ef4444; }
+.seer-phone .PhoneInputInput {
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  background: transparent;
+  padding: 0.625rem 0;
+  font-size: 16px;
+  color: rgb(var(--paper));
+  outline: none;
+}
+.seer-phone .PhoneInputInput::placeholder { color: rgb(var(--paper) / 0.4); }

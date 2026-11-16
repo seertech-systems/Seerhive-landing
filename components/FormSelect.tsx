@@ -17,6 +17,7 @@ export default function FormSelect({
   onChange,
   invalid,
   className = "",
+  listClassName = "",
 }: {
   name: string;
   options: SelectOption[];
@@ -25,6 +26,8 @@ export default function FormSelect({
   onChange: (v: string) => void;
   invalid?: boolean;
   className?: string;
+  /** Extra classes for the open list, e.g. "max-h-64" to make a long list scroll. By default every option is shown. */
+  listClassName?: string;
 }) {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(-1);
@@ -92,7 +95,7 @@ export default function FormSelect({
         <ul
           id={listId}
           role="listbox"
-          className="absolute left-0 right-0 z-30 mt-2 max-h-64 overflow-y-auto rounded-2xl border border-border bg-surface p-1.5 shadow-[0_24px_60px_-24px_rgba(15,40,90,0.45)] animate-fadeIn"
+          className={`absolute left-0 right-0 z-30 mt-2 overflow-y-auto rounded-2xl ${listClassName} border border-border bg-surface p-1.5 shadow-[0_24px_60px_-24px_rgba(15,40,90,0.45)] animate-fadeIn`}
         >
           {options.map((o, i) => {
             const on = o.value === value;

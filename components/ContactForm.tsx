@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import FormSelect from "@/components/FormSelect";
+import PhoneInput, { PHONE_DIGITS, nationalDigits } from "@/components/PhoneInput";
 import { ApiError } from "@/services/apiClient";
 import { getContactOptions, submitContact, type ContactOptions, type Option } from "@/features/contact/contactService";
 
@@ -58,9 +59,11 @@ const field =
 
 const NAME_MIN = 2;
 const NAME_MAX = 30;
-const MESSAGE_MAX_WORDS = 250;
+const COMPANY_MAX = 60;
+const EMAIL_MAX = 60;
+const MESSAGE_MIN = 2;
+const MESSAGE_MAX = 500;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-const wordCount = (t: string) => (t.trim() ? t.trim().split(/\s+/).length : 0);
 
 /** Red asterisk for a mandatory field. */
 const Req = () => (
@@ -75,10 +78,11 @@ export default function ContactForm() {
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
-  const [words, setWords] = useState(0);
+  const [chars, setChars] = useState(0);
   const [topic, setTopic] = useState("");
   const [product, setProduct] = useState("");
   const [size, setSize] = useState("");
+  const [phone, setPhone] = useState("");
 
   useEffect(() => {
     let live = true;
@@ -91,7 +95,6 @@ export default function ContactForm() {
   }, []);
 
   const productOptions: Option[] = options.products.map((p) => ({ ...p, label: PRODUCT_LABELS[p.code] ?? p.label }));
-
   /** Drops a field's error as soon as the visitor edits it, and the summary line once none are left. */
   const clearErr = (name: string) => {
     if (!fieldErrors[name]) return;
@@ -129,13 +132,15 @@ export default function ContactForm() {
         };
         textRule("fullName", "Name");
         if (get("company") && get("company").length < NAME_MIN) problems.company = `Company must be at least ${NAME_MIN} characters.`;
-        else if (get("company").length > NAME_MAX) problems.company = `Company must be ${NAME_MAX} characters or fewer.`;
+        else if (get("company").length > COMPANY_MAX) problems.company = `Company must be ${COMPANY_MAX} characters or fewer.`;
         if (!get("workEmail")) problems.workEmail = "Work email is required.";
+        else if (get("workEmail").length > EMAIL_MAX) problems.workEmail = `Work email must be ${EMAIL_MAX} characters or fewer.`;
         else if (!EMAIL_RE.test(get("workEmail"))) problems.workEmail = "Enter a valid email address.";
-        if (get("phone") && !/^\+[1-9]\d{6,14}$/.test(get("phone").replace(/[\s()-]/g, ""))) problems.phone = "Use the international format, e.g. +919876543210.";
+        if (get("phone") && nationalDigits(get("phone")).length !== PHONE_DIGITS) problems.phone = `Enter a ${PHONE_DIGITS}-digit phone number.`;
         if (!get("enquiryType")) problems.enquiryType = "Please choose a topic.";
         if (!get("product")) problems.product = "Please choose a product.";
-        if (wordCount(get("message")) > MESSAGE_MAX_WORDS) problems.message = `Please keep your message to ${MESSAGE_MAX_WORDS} words or fewer.`;
+        if (get("message") && get("message").length < MESSAGE_MIN) problems.message = `Message must be at least ${MESSAGE_MIN} characters.`;
+        else if (get("message").length > MESSAGE_MAX) problems.message = `Message must be ${MESSAGE_MAX} characters or fewer.`;
         if (f.get("consent") !== "on") problems.consent = "Please tick the box to continue.";
         if (Object.keys(problems).length) {
           setFieldErrors(problems);
@@ -153,7 +158,7 @@ export default function ContactForm() {
             enquiryType: get("enquiryType"),
             product: get("product"),
             companySize: get("companySize") || undefined,
-            phone: get("phone").replace(/[\s()-]/g, ""),
+            phone: get("phone"),
             message: get("message") || undefined,
             consent: f.get("consent") === "on",
             source: "WEBSITE",
@@ -163,7 +168,8 @@ export default function ContactForm() {
           setTopic("");
           setProduct("");
           setSize("");
-          setWords(0);
+          setPhone("");
+          setChars(0);
         } catch (ex) {
           if (ex instanceof ApiError && ex.fieldErrors.length) {
             setFieldErrors(Object.fromEntries(ex.fieldErrors.map((x) => [x.field, x.message])));
@@ -177,7 +183,7 @@ export default function ContactForm() {
           setSending(false);
         }
       }}
-      className="rounded-3xl border border-border bg-surface p-7 sm:p-9 space-y-5 shadow-[0_30px_80px_-40px_rgba(15,40,90,0.4)]"
+      className="rounded-3xl border border-border bg-surface p-5 sm:p-9 space-y-5 shadow-[0_30px_80px_-40px_rgba(15,40,90,0.4)]"
     >
       <div className="grid sm:grid-cols-2 gap-5">
         <label className="block">
@@ -187,20 +193,20 @@ export default function ContactForm() {
         </label>
         <label className="block">
           <span className="label-mono whitespace-nowrap text-[12px] text-mist">Work email<Req /></span>
-          <input required type="email" name="workEmail" maxLength={100} autoComplete="email" className={field} placeholder="you@company.com" />
+          <input required type="email" name="workEmail" maxLength={EMAIL_MAX} autoComplete="email" className={field} placeholder="you@company.com" />
           {err("workEmail")}
         </label>
       </div>
 
       <div className="grid sm:grid-cols-2 gap-5">
         <label className="block">
-          <span className="label-mono text-[12px] text-mist">Company (optional)</span>
-          <input type="text" name="company" minLength={NAME_MIN} maxLength={NAME_MAX} autoComplete="organization" className={field} placeholder="Acme Corp" />
+          <span className="label-mono text-[12px] text-mist">Company</span>
+          <input type="text" name="company" minLength={NAME_MIN} maxLength={COMPANY_MAX} autoComplete="organization" className={field} placeholder="Acme Corp" />
           {err("company")}
         </label>
         <label className="block">
-          <span className="label-mono text-[12px] text-mist">Phone (optional)</span>
-          <input type="tel" name="phone" maxLength={20} className={field} placeholder="+919876543210" />
+          <span className="label-mono text-[12px] text-mist">Phone</span>
+          <PhoneInput name="phone" value={phone} onChange={(v) => { setPhone(v); clearErr("phone"); }} invalid={!!fieldErrors.phone} />
           {err("phone")}
         </label>
       </div>
@@ -233,7 +239,7 @@ export default function ContactForm() {
       </div>
 
       <label className="block">
-        <span className="label-mono text-[12px] text-mist">Company size (optional)</span>
+        <span className="label-mono text-[12px] text-mist">Company size</span>
         <FormSelect
           name="companySize"
           placeholder="Select company size"
@@ -249,13 +255,13 @@ export default function ContactForm() {
         <textarea
           name="message"
           rows={4}
-          maxLength={2000}
-          onChange={(e) => setWords(wordCount(e.target.value))}
+          maxLength={MESSAGE_MAX}
+          onChange={(e) => setChars(e.target.value.length)}
           className={`${field} resize-none`}
           placeholder="Tell us a bit about your hiring needs."
         />
-        <span className={`mt-1 block text-right text-[12px] ${words > MESSAGE_MAX_WORDS ? "text-red-500" : "text-mist"}`}>
-          {words}/{MESSAGE_MAX_WORDS} words
+        <span className={`mt-1 block text-right text-[12px] ${chars > MESSAGE_MAX ? "text-red-500" : "text-mist"}`}>
+          {chars}/{MESSAGE_MAX} characters
         </span>
         {err("message")}
       </label>

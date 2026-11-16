@@ -104,7 +104,7 @@ export default function WhatIsSection() {
             <p data-reveal className="mt-4 leading-relaxed text-mist">
               From recruiters screening hundreds of resumes to call centers handling thousands of calls, SeerHive gives each team the AI it needs, on one connected platform.
             </p>
-            <div data-reveal-stagger="70" className="mt-6 grid grid-cols-2 gap-5 lg:grid-cols-4">
+            <div data-reveal-stagger="70" className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
               {users.map((u, i) => (
           <div
             key={u.title}

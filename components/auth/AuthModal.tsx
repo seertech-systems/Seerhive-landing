@@ -37,7 +37,7 @@ function PasswordField({ value, onChange, autoComplete, placeholder }: {
         className="absolute right-3 top-1/2 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-full text-mist transition-colors hover:text-paper"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          {visible ? (
+          {!visible ? (
             <>
               <path d="M3 3l18 18" />
               <path d="M10.6 6.2A9.9 9.9 0 0112 6c5 0 8.5 3.6 10 6-.6 1-1.5 2.1-2.7 3.1M6.5 7.6C4.4 8.9 2.9 10.7 2 12c1.5 2.4 5 6 10 6 1.6 0 3-.4 4.3-1" />

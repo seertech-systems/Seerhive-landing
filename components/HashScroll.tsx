@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 
 const HEADER = 72; // height of the fixed header
+const GAP = 24; // space left between the header and the section's content
 
 /**
  * Makes "/#section" links land exactly on their section.
@@ -14,7 +15,9 @@ const HEADER = 72; // height of the fixed header
 function scrollToId(id: string, smooth: boolean) {
   const el = document.getElementById(id);
   if (!el) return;
-  const targetTop = () => el.getBoundingClientRect().top + window.scrollY - HEADER;
+  // Sections carry their own top padding (up to 128px); skip most of it so the content, not empty space, lands under the header.
+  const skip = () => Math.max(0, (parseFloat(getComputedStyle(el).paddingTop) || 0) - GAP);
+  const targetTop = () => el.getBoundingClientRect().top + window.scrollY - HEADER + skip();
   window.scrollTo({ top: targetTop(), behavior: smooth ? "smooth" : "auto" });
 
   let last = -1;
@@ -26,7 +29,7 @@ function scrollToId(id: string, smooth: boolean) {
     still = Math.abs(y - last) < 1 ? still + 1 : 0;
     last = y;
     if (still >= 2) {
-      if (Math.abs(el.getBoundingClientRect().top - HEADER) > 4) {
+      if (Math.abs(el.getBoundingClientRect().top - HEADER + skip()) > 4) {
         window.scrollTo({ top: targetTop(), behavior: "auto" });
         still = 0;
       } else {

@@ -71,15 +71,6 @@ export const moduleScreens: Record<string, ModuleScreen[]> = {
       alt: "Resume Enhancer showing the improved resume with highlighted changes",
     },
     {
-      id: "studio-overview",
-      tab: "Studio overview",
-      title: "Four ways to build a resume, in one workspace",
-      text: "Resume Studio sits under the Resume Enhancer. Choose to start from a sample resume, a role or a template, or reopen a saved resume. Every result opens in the same editor, and a counter shows how many of today's generations are left.",
-      points: ["Resume → Resume, Role Advisor, Template Library and My Saved Resumes", "30+ designs, unsupported claims flagged, every save a version", "Today's generations used and left", "A guided tour on first use"],
-      image: "/screens/resume-enhancer/studio-overview.png",
-      alt: "Resume Studio overview with four ways to start and today's generations left",
-    },
-    {
       id: "studio-r2r",
       tab: "Resume → Resume",
       title: "Rebuild your resume in a sample's format",

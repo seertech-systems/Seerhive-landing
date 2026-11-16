@@ -18,7 +18,7 @@ export default function Footer() {
             </div>
             <p className="mt-4 text-[16px] text-white/85 leading-relaxed max-w-xs">
               Intelligent solutions, infinite possibilities. SeerHive Recruit AI,
-              SeerVoiz AI, SeerHive Invoicing, the SeerHive Data Ingestion Pipeline and
+              SeerVoiz AI, SeerHive Invoicing, SeerHive Data Ingestion Pipeline and
               the SeerHive HRMS + ATS.
             </p>
           </div>
